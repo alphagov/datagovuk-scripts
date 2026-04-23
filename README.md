@@ -14,7 +14,7 @@ npm install
 2. Run the script:
 
 ```
-node process-search-analytics.js
+npm start
 ```
 
 Output files are written to `output/`:
@@ -32,13 +32,13 @@ Output files are written to `output/`:
 You can also pass a specific input file as an argument:
 
 ```
-node process-search-analytics.js input/search-2026-04-17.csv
+npm start -- input/search-2026-04-17.csv
 ```
 
 ## Tests
 
 ```
-node test.js
+npm test
 ```
 
 Verifies that the view totals in each output CSV sum to the grand total in the input file.
