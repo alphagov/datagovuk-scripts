@@ -3,3 +3,11 @@ search_analytics/input/*
 !search_analytics/input/.gitkeep
 search_analytics/output/*
 !search_analytics/output/.gitkeep
+
+#  local files
+.DS_Store
+*.log
+environment.sh
+.env*
+!.env.example
+*.pem
