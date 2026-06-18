@@ -1,5 +1,5 @@
-node_modules/
-input/*
-!input/.gitkeep
-output/*
-!output/.gitkeep
+search_analytics/node_modules/
+search_analytics/input/*
+!search_analytics/input/.gitkeep
+search_analytics/output/*
+!search_analytics/output/.gitkeep
