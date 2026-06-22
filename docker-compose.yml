@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  scripts:
+    container_name: datagovuk-scripts
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./check-links:/app/check-links
+    external_links:
+      - db-2.10:db
+    networks:
+      - docker_ckan-2.10
+    command: bash -c "tail -f /dev/null"
+
+  floci:
+    image: floci/floci:latest
+    container_name: floci
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - docker_ckan-2.10
+
+networks:
+  docker_ckan-2.10:
+    external: true
