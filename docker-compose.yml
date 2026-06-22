@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  scripts:
-    container_name: datagovuk-scripts
+  check-links:
+    container_name: check-links
     build: .
     env_file:
       - .env
@@ -14,9 +14,11 @@ services:
       - docker_ckan-2.10
     command: bash -c "tail -f /dev/null"
 
-  floci:
+  local_aws_emulator:
     image: floci/floci:latest
-    container_name: floci
+    container_name: local_aws_emulator
+    environment:
+      - AWS_DEFAULT_REGION=eu-west-1
     ports:
       - "4566:4566"
     volumes:

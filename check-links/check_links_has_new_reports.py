@@ -25,18 +25,21 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    report_files = [f for f in listdir(args.mount_path) if isfile(join(args.mount_path, f))]
+    report_files = [
+        f for f in listdir(args.mount_path) if isfile(join(args.mount_path, f))
+    ]
     print(f"Report files: {report_files}")
 
     bucket = CkanOutputBucket()
-    
-    s3_files = [f.split('/')[-1] for f in bucket.get_s3_ls(path=args.s3_dir)]
+
+    s3_files = [f.split("/")[-1] for f in bucket.get_s3_ls(path=args.s3_dir)]
     print(f"S3 files: {s3_files}")
-    
+
     new_files = list(set(s3_files) - set(report_files))
     print(f"New files: {new_files}")
-    
+
     return 1 if new_files else 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

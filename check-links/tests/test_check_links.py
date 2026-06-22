@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, Mock
 import pytest
 import requests
 
-from python_scripts.check_links import (
+from check_links import (
     HTTP_TIMEOUT,
     REPORT_HEADERS,
     Category,
@@ -73,7 +73,7 @@ def _stub_dns_connection_error() -> requests.ConnectionError:
     # stub error requests raises when the host fails to resolve.
     return requests.ConnectionError(
         "HTTPSConnectionPool(host='no-such-host.example', port=443): Max retries "
-        "exceeded (Caused by NameResolutionError(\"Failed to resolve "
+        'exceeded (Caused by NameResolutionError("Failed to resolve '
         "'no-such-host.example' ([Errno -2] Name or service not known)\"))"
     )
 
@@ -97,7 +97,11 @@ def _stub_dns_connection_error() -> requests.ConnectionError:
             requests.ConnectionError(ConnectionRefusedError(111, "Connection refused")),
             Category.CONNECTION_REFUSED,
         ),
-        (None, requests.exceptions.SSLError("bad handshake"), Category.CONNECTION_ERROR),
+        (
+            None,
+            requests.exceptions.SSLError("bad handshake"),
+            Category.CONNECTION_ERROR,
+        ),
         (None, ValueError("some other error"), Category.OTHER_ERROR),
         (None, None, Category.OTHER_ERROR),
     ],

@@ -32,7 +32,7 @@ from urllib3.util.retry import Retry
 from lib.s3 import CkanOutputBucket
 
 
-LOG_FILE = "check_links.log"
+LOG_FILE = "/tmp/check_links.log"
 REPORT_FILE = "check_links_report_{timestamp}{verbose}.csv"
 REINDEX_FILE = "packages_to_reindex_{timestamp}{verbose}.txt"
 USER_AGENT = "data.gov.uk-link-checker/1.0 (+https://www.data.gov.uk)"
@@ -131,8 +131,8 @@ class CheckResult:
 
 
 def classify_connection_error(exc: ConnectionError) -> tuple[Category, str]:
-    """Try to disambiguate requests.ConnectionError 
-    into DNS error or refused, and if not return original 
+    """Try to disambiguate requests.ConnectionError
+    into DNS error or refused, and if not return original
     generic ConnectionError
     """
     detail = str(exc)
@@ -208,7 +208,6 @@ def fetch_status(
     url: str,
     timeout: tuple[float, float] = HTTP_TIMEOUT,
 ) -> int:
-
     with session.head(url, timeout=timeout, allow_redirects=True) as resp:
         status = resp.status_code
 
@@ -441,7 +440,6 @@ def run(
     limit: int | None = None,
     verbose: bool = False,
 ) -> None:
-
     rows_from_db = repository.fetch_resources(limit)
     rows = interleave_rows_by_host(rows_from_db)
     logger.info(f"loaded {len(rows)} resources")
@@ -520,9 +518,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--output-dir",
-        default=".",
-        help="directory for CSV report and reindex list (default: current directory). "
-        "Log file is always written to the current directory.",
+        default=os.environ.get("OUTPUT_LOCATION", "/tmp"),
+        help="directory for CSV report and reindex list (default: $OUTPUT_LOCATION or /tmp). ",
     )
     parser.add_argument(
         "--local",
@@ -537,9 +534,17 @@ def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M")
     log_path = LOG_FILE
-    report_path = os.path.join(args.output_dir, REPORT_FILE.format(timestamp=timestamp, verbose="_verbose" if args.verbose else ""))
+    report_path = os.path.join(
+        args.output_dir,
+        REPORT_FILE.format(
+            timestamp=timestamp, verbose="_verbose" if args.verbose else ""
+        ),
+    )
     reindex_path = os.path.join(
-        args.output_dir, REINDEX_FILE.format(timestamp=timestamp, verbose="_verbose" if args.verbose else "")
+        args.output_dir,
+        REINDEX_FILE.format(
+            timestamp=timestamp, verbose="_verbose" if args.verbose else ""
+        ),
     )
     logger = setup_logging(log_path)
     logger.info(f"mode: {args.mode}")

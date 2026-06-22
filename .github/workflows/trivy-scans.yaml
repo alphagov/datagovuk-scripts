@@ -2,7 +2,7 @@ name: "Trivy Security Scan"
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "DGUK-646-create-cicd-pipeline" ]
   workflow_call:
 
 jobs:

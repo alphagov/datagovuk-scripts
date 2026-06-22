@@ -5,11 +5,11 @@ import re
 
 class CkanOutputBucket(object):
     def __init__(self):
-        bucket_name = os.environ.get('CKAN_OUTPUT_BUCKET_NAME')
+        bucket_name = os.environ.get("CKAN_OUTPUT_BUCKET_NAME")
         if not bucket_name:
             raise Exception("CKAN_OUTPUT_BUCKET_NAME environment variable is not set")
 
-        s3 = boto3.resource('s3')
+        s3 = boto3.resource("s3")
         self.bucket = s3.Bucket(bucket_name)
 
     def get_s3_ls(self, path=None):
@@ -26,7 +26,6 @@ class CkanOutputBucket(object):
         else:
             s3_path = path.split("/")[-1]
         self.bucket.upload_file(path, s3_path)
-
 
     def download_from_s3(self, s3_path, target_dir=None):
         target_path = s3_path

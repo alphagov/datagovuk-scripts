@@ -4,8 +4,8 @@ from unittest.mock import MagicMock, call
 
 import pytest
 
-from python_scripts.check_links import REPORT_HEADERS
-from python_scripts.revert_link_deletions import revert
+from check_links import REPORT_HEADERS
+from revert_link_deletions import revert
 
 
 @pytest.fixture
