@@ -7,11 +7,13 @@ to data.  A large fraction of those links have become broken.
 
 ## Scripts
 
-There are two main scripts in this directory;
+There are three scripts in this directory;
 - `analyse.py` - takes a broken link report and analyses it for counts/proportions
     of different statuses/breakages.
 - `retry.py` - takes a broken link report and retries failed requests.  Writes
     a new broken link report.
+- `filter.py` - takes a broken link report and filters results based on user-supplied
+    arguments.  Writes a new filtered broken link report.
 
 To run scripts locally, run the following;
 ```
