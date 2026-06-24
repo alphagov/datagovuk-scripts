@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from check_links import Repository, setup_logging
 
-LOG_FILE = "/tmp/check_links_updated_to_{state}.log"
+LOG_FILE = "check_links_updated_to_{state}.log"
 REINDEX_FILE = "{state}_packages_to_reindex_{timestamp}.txt"
 
 

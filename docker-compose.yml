@@ -3,7 +3,7 @@ version: "3"
 services:
   check-links:
     container_name: check-links
-    build: .
+    build: ./check-links
     env_file:
       - .env
     volumes:

@@ -32,7 +32,7 @@ from urllib3.util.retry import Retry
 from lib.s3 import CkanOutputBucket
 
 
-LOG_FILE = "/tmp/check_links.log"
+LOG_FILE = "check_links.log"
 REPORT_FILE = "check_links_report_{timestamp}{verbose}.csv"
 REINDEX_FILE = "packages_to_reindex_{timestamp}{verbose}.txt"
 USER_AGENT = "data.gov.uk-link-checker/1.0 (+https://www.data.gov.uk)"
