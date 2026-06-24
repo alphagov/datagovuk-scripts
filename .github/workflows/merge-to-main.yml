@@ -5,20 +5,20 @@ on:
     branches: ['main']
 
 jobs:
-  ci:
-    uses: ./.github/workflows/ci.yml
+  check-links-ci:
+    uses: ./.github/workflows/check-links-ci.yml
     permissions:
       contents: read
 
-  trivy-scan:
-    uses: ./.github/workflows/trivy-scans.yml
+  check-links-trivy-scan:
+    uses: ./.github/workflows/check-links-trivy-scan.yml
 
   build-check-links-image:
     uses: ./.github/workflows/build-check-links-image.yml
     with:
       buildType: build_push
       gitRef: ${{ github.sha }}
-    needs: [ci, trivy-scan]
+    needs: [check-links-ci, check-links-trivy-scan]
 
     permissions:
       contents: read
