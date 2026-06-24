@@ -89,7 +89,7 @@ jobs:
             type=sha,priority=100,format=long
           labels: |
             org.opencontainers.image.title=check-links
-            org.opencontainers.image.authors="GOV.UK Platform Engineering"
+            org.opencontainers.image.authors="National Data Library Engineering Team"
             org.opencontainers.image.description="check-links image for data.gov.uk"
             org.opencontainers.image.source="https://github.com/alphagov/datagovuk-scripts"
             org.opencontainers.image.version=${{ steps.version.outputs.version }}
