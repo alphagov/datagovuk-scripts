@@ -28,7 +28,7 @@ on:
 
 env:
   BUILD_TYPE: ${{ inputs.buildType || 'build_push' }}
-  REGISTRY_BASE: ghcr.io/alphagov/datagovuk-scripts
+  REGISTRY_BASE: ghcr.io/${{ github.repository }}/check-links
 
 jobs:
   configure_builds:
