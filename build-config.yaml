@@ -3,5 +3,5 @@ apps:
     name: check-links
     version: 0.1.0
 runs_on:
-  - runner_type: ubuntu-24.04-arm
-    arch: arm64
+- runner_type: ubuntu-24.04-arm
+  arch: arm64

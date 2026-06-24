@@ -31,34 +31,11 @@ env:
   REGISTRY_BASE: ghcr.io/${{ github.repository }}/check-links
 
 jobs:
-  configure_builds:
-    name: Configure Builds
-    runs-on: ubuntu-latest
-    outputs:
-      app_metadata: ${{ steps.set-matrix.outputs.app_metadata }}
-      runs_on: ${{ steps.set-matrix.outputs.runs_on }}
-    steps:
-      - uses: actions/checkout@v6.0.2
-        with:
-          ref: ${{ inputs.gitRef || github.ref }}
-          show-progress: false
-      - id: set-matrix
-        run: |
-          app_metadata=$(yq -o=json ".apps.check-links" build-config.yaml | jq -r '. | {name: .name, version: .version} | @json')
-          runs_on=$(yq -o=json '.runs_on' build-config.yaml | jq -r '[.[] | {runner_type: .runner_type, arch: .arch}] | @json')
-          echo "[DEBUG] app_metadata: $app_metadata"
-          echo "[DEBUG] runs_on: $runs_on"
-          echo "app_metadata=$app_metadata" >> "$GITHUB_OUTPUT"
-          echo "runs_on=$runs_on" >> "$GITHUB_OUTPUT"
-
-  build_and_push_multiarch_image:
-    name: Build check-links for ${{ matrix.runs_on.arch }}
-    needs: configure_builds
-    strategy:
-      matrix:
-        runs_on: ${{ fromJson(needs.configure_builds.outputs.runs_on) }}
-    runs-on: ${{ matrix.runs_on.runner_type }}
+  build_and_push:
+    name: Build and push check-links
+    runs-on: ubuntu-24.04-arm
     permissions:
+      contents: read
       packages: write
     steps:
       - uses: docker/setup-docker-action@5fc00c3ecf2ef3efae431528032c7b9711e245d3 # v5.0.0
@@ -81,26 +58,25 @@ jobs:
       - name: Setup Docker BuildX
         uses: docker/setup-buildx-action@v4
 
-      - name: Calculate Image Tags
-        id: calculate-image-tags
+      - name: Read version from build-config
+        id: version
         run: |
-          CREATED_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-          echo "createdDate=${CREATED_DATE}" >> "$GITHUB_OUTPUT"
+          version=$(yq '.apps.check-links.version' build-config.yaml)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Determine Image Tags
         id: determine-image-tags
         run: |
           buildType="${{ env.BUILD_TYPE }}"
-
           if [ "$buildType" = "build_push_with_gittag" ]; then
             echo "GH_TAG=${{ inputs.gitRef || github.ref }}" >> "$GITHUB_ENV"
           else
             echo "GH_TAG=${{ github.sha }}" >> "$GITHUB_ENV"
           fi
 
-      - name: Generate App Image Metadata
+      - name: Generate Image Metadata
         uses: docker/metadata-action@v6
-        id: app-metadata
+        id: metadata
         with:
           flavor: |
             latest=false
@@ -108,130 +84,25 @@ jobs:
             ${{ env.REGISTRY_BASE }}
           tags: |
             type=raw,value=${{ env.GH_TAG }}
-            type=raw,value=v${{ fromJson(needs.configure_builds.outputs.app_metadata).version }}
+            type=raw,value=v${{ steps.version.outputs.version }}
             type=sha,format=short
             type=sha,priority=100,format=long
           labels: |
-            org.opencontainers.image.title=${{ fromJson(needs.configure_builds.outputs.app_metadata).name }}
+            org.opencontainers.image.title=check-links
             org.opencontainers.image.authors="GOV.UK Platform Engineering"
             org.opencontainers.image.description="check-links image for data.gov.uk"
             org.opencontainers.image.source="https://github.com/alphagov/datagovuk-scripts"
-            org.opencontainers.image.version=${{ fromJson(needs.configure_builds.outputs.app_metadata).version }}
-            org.opencontainers.image.created=${{ steps.calculate-image-tags.outputs.createdDate }}
+            org.opencontainers.image.version=${{ steps.version.outputs.version }}
             org.opencontainers.image.vendor=GDS
 
-      - name: Build Check-Links Image
-        id: build-app-image
+      - name: Build and Push Check-Links Image
         uses: docker/build-push-action@v7.2.0
         with:
           context: ./check-links
-          platforms: "linux/${{ matrix.runs_on.arch }}"
-          load: true
+          platforms: linux/arm64
+          push: ${{ env.BUILD_TYPE != 'build_only' }}
           provenance: false
-          labels: ${{ steps.app-metadata.outputs.labels }}
-          outputs: |
-            type=image,name=${{ env.REGISTRY_BASE }},push-by-digest=true,name-canonical=true,push=true
-          cache-from: type=gha,scope=${{ fromJson(needs.configure_builds.outputs.app_metadata).name }}-app-${{ matrix.runs_on.arch }}
-          cache-to: type=gha,scope=${{ fromJson(needs.configure_builds.outputs.app_metadata).name }}-app-${{ matrix.runs_on.arch }},mode=max
-
-      - name: Export App Image Digests
-        if: ${{ env.BUILD_TYPE != 'build_only' }}
-        id: export-app-digests
-        env:
-          DIGEST: "${{ steps.build-app-image.outputs.digest }}"
-        run: |
-          mkdir -p /tmp/digests/app
-          touch "/tmp/digests/app/${DIGEST#sha256:}"
-
-      - name: Upload Digest Artifacts
-        if: ${{ env.BUILD_TYPE != 'build_only' }}
-        id: upload-digests
-        uses: actions/upload-artifact@v7
-        with:
-          name: digests-${{ fromJson(needs.configure_builds.outputs.app_metadata).name }}-${{ matrix.runs_on.arch }}
-          path: /tmp/digests/*
-          if-no-files-found: error
-          retention-days: 1
-          overwrite: true
-
-  create_image_manifest:
-    if: ${{ inputs.buildType != 'build_only' }}
-    name: Create Image Manifest
-    needs:
-      - configure_builds
-      - build_and_push_multiarch_image
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-      packages: write
-    steps:
-      - uses: docker/setup-docker-action@e43656e248c0bd0647d3f5c195d116aacf6fcaf4 # v4.7.0
-        with:
-          version: "version=28.5.2"
-
-      - name: Setup Docker BuildX
-        uses: docker/setup-buildx-action@v4
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4.2.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Determine Image Tags
-        id: determine-image-tags
-        run: |
-          buildType="${{ env.BUILD_TYPE }}"
-
-          if [ "$buildType" = "build_push_with_gittag" ]; then
-            echo "GH_TAG=${{ inputs.gitRef || github.ref }}" >> "$GITHUB_ENV"
-          else
-            echo "GH_TAG=${{ github.sha }}" >> "$GITHUB_ENV"
-          fi
-
-      - name: Download Image Digests
-        uses: actions/download-artifact@v8
-        with:
-          path: /tmp/digests
-          pattern: digests-${{ fromJson(needs.configure_builds.outputs.app_metadata).name }}-*
-          merge-multiple: true
-
-      - name: Generate App Image Metadata
-        uses: docker/metadata-action@v6
-        id: app-metadata
-        with:
-          flavor: |
-            latest=false
-          images: |
-            ${{ env.REGISTRY_BASE }}
-          tags: |
-            type=raw,value=${{ env.GH_TAG }}
-            type=raw,value=v${{ fromJson(needs.configure_builds.outputs.app_metadata).version }}
-            type=sha,format=short
-            type=sha,priority=100,format=long
-          labels: |
-            org.opencontainers.image.title=${{ fromJson(needs.configure_builds.outputs.app_metadata).name }}
-            org.opencontainers.image.authors="GOV.UK Platform Engineering"
-            org.opencontainers.image.description="check-links image for data.gov.uk"
-            org.opencontainers.image.source="https://github.com/alphagov/datagovuk-scripts"
-            org.opencontainers.image.version=${{ fromJson(needs.configure_builds.outputs.app_metadata).version }}
-            org.opencontainers.image.created=${{ steps.calculate-image-tags.outputs.createdDate }}
-            org.opencontainers.image.vendor=GDS
-
-      - name: Create App Image Manifest Lists
-        env:
-          IMAGEREF_PREFIX: "${{ env.REGISTRY_BASE }}"
-        working-directory: /tmp/digests/app
-        run: |
-          tag_args=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON")
-          printf -v sources "${IMAGEREF_PREFIX}@sha256:%s " *
-          # shellcheck disable=SC2086 # Intentional word-splitting on $tag_args and $sources.
-          docker buildx imagetools create $tag_args $sources
-
-      - name: Inspect App Images
-        env:
-          IMAGEREF: "${{ env.REGISTRY_BASE }}:${{ steps.app-metadata.outputs.version }}"
-        run: |
-          docker buildx imagetools inspect "$IMAGEREF"
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache-from: type=gha,scope=check-links
+          cache-to: type=gha,scope=check-links,mode=max
