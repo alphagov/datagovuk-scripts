@@ -2,7 +2,7 @@ name: "Trivy Security Scan"
 
 on:
   pull_request:
-    branches: [ "main", "DGUK-646-create-cicd-pipeline" ]
+    branches: [ "main" ]
   workflow_call:
 
 jobs:
@@ -17,12 +17,12 @@ jobs:
         uses: actions/checkout@v6.0.2
 
       - name: Build Docker image
-        run: docker build -t datagovuk-scripts .
+        run: docker build -t check-links ./check-links
 
       - name: Run Trivy scan
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          image-ref: 'datagovuk-scripts'
+          image-ref: 'check-links'
           format: 'table'
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true

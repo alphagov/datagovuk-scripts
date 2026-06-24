@@ -1,0 +1,26 @@
+name: Merge to main
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
+  trivy-scan:
+    uses: ./.github/workflows/trivy-scans.yml
+
+  build-check-links-image:
+    uses: ./.github/workflows/build-check-links-image.yml
+    with:
+      buildType: build_push
+      gitRef: ${{ github.sha }}
+    needs: [ci, trivy-scan]
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
