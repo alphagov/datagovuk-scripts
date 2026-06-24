@@ -28,13 +28,17 @@ def main():
     parser.add_argument("output_file_path", type=str, help="The file path to write the filtered CSV to")
     parser.add_argument("-e", "--exclude", action="append", type=str, help="The column(s)/values to exclude")
     args = parser.parse_args()
-    exclusions = defaultdict(list)
+    exclusions = {}
     for exclude_argument in args.exclude:
         try:
             column_name, value = exclude_argument.split("=")
         except ValueError:
             raise Exception(f"--exclude argument {exclude_argument} did not follow <column>=<value> pattern")
-        exclusions[column_name].append(value)
+        if "," in value:
+            value = value.split(",")
+        else:
+            value = [value]
+        exclusions[column_name] = value
     filter(args.input_file_path, args.output_file_path, exclusions)
 
 
