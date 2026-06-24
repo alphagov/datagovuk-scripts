@@ -8,7 +8,7 @@
 Reports are uploaded to an s3 bucket and the following env variable will need to be set otherwise an exception will be thrown. This is needed to be able to publish the reports
 
 - Set environment variable `CKAN_OUTPUT_BUCKET_NAME`
-- Value set as `govuk-ckan-output-<test|integration|staging|production>`
+- Value set as `govuk-ckan-output-<integration|staging|production>`
 
 If testing locally you can skip wth S3 bucket output by passing the flag `--local`
 
@@ -110,7 +110,7 @@ Set the AWS credentials in the .env file
 AWS_ENDPOINT_URL=http://localhost:4566
 AWS_ACCESS_KEY_ID=test
 AWS_SECRET_ACCESS_KEY=test
-CKAN_OUTPUT_BUCKET_NAME=govuk-ckan-output-test
+CKAN_OUTPUT_BUCKET_NAME=govuk-ckan-output-local
 ```
 
 Run the docker compose local stack from the root directory (this includes floci for local S3):
@@ -122,7 +122,7 @@ docker compose up
 Create an S3 bucket to be used by the check-links scripts
 
 ```bash
-aws --endpoint-url=http://localhost:4566 s3 mb s3://govuk-ckan-output-test
+aws --endpoint-url=http://localhost:4566 s3 mb s3://govuk-ckan-output-local
 ```
 
 ### 1. Shell into running container
