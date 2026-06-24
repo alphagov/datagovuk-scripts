@@ -54,8 +54,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--input-dir",
-        default=os.environ.get("OUTPUT_LOCATION", "/tmp"),
-        help="directory for CSV report and reindex list (default: $OUTPUT_LOCATION or /tmp). ",
+        default=".",
+        help="directory for CSV report and reindex list (default: current directory). ",
     )
 
     return parser.parse_args(argv)

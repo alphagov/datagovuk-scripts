@@ -64,8 +64,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--output-dir",
-        default=os.environ.get("OUTPUT_LOCATION", "/tmp"),
-        help="directory for the reindex list (default: $OUTPUT_LOCATION or /tmp). ",
+        default=".",
+        help="directory for the reindex list (default: current directory). "
+        "Log file is always written to the current directory.",
     )
     return parser.parse_args(argv)
 
