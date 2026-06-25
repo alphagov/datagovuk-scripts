@@ -10,8 +10,8 @@ else
   export SOURCE_BRANCH=${GH_REF}
 fi
 
-git config --global user.email "govuk-ci@users.noreply.github.com"
-git config --global user.name "govuk-ci"
+git config --global user.email "datagovuk-ci@users.noreply.github.com"
+git config --global user.name "datagovuk-ci"
 
 gh auth setup-git
 git clone https://github.com/alphagov/govuk-dgu-charts.git charts
