@@ -24,3 +24,10 @@ jobs:
       contents: read
       packages: write
       id-token: write
+
+  create-integration-pr:
+    uses: ./.github/workflows/create-integration-pr.yaml
+    needs: build-check-links-image
+    with:
+      gitRef: ${{ github.ref_name }}
+    secrets: inherit
