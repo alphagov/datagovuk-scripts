@@ -139,7 +139,7 @@ def apply(
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
-    log_path = LOG_FILE.format(state=args.set_state)
+    log_path = os.path.join("output", LOG_FILE.format(state=args.set_state))
     reindex_path = os.path.join(
         args.output_dir, REINDEX_FILE.format(state=args.set_state, timestamp=timestamp)
     )

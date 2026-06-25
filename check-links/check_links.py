@@ -520,7 +520,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--output-dir",
         default=".",
         help="directory for CSV report and reindex list (default: current directory). "
-        "Log file is always written to the current directory.",
+        "Log file is always written to the output/ directory.",
     )
     parser.add_argument(
         "--local",
@@ -534,7 +534,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M")
-    log_path = LOG_FILE
+    log_path = os.path.join("output", LOG_FILE)
     report_path = os.path.join(
         args.output_dir,
         REPORT_FILE.format(

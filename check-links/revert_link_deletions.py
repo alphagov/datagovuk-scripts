@@ -94,7 +94,7 @@ def revert(
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    log_path = LOG_FILE
+    log_path = os.path.join("output", LOG_FILE)
     reindex_path = os.path.join(
         args.output_dir, REINDEX_FILE.format(timestamp=timestamp)
     )
