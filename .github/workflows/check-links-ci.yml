@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  workflow_call:
+  pull_request:
+      branches: [main]
+
+jobs:
+    linter:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Code Repository
+          uses: actions/checkout@v6.0.2
+
+        - name: Set up Python
+          uses: actions/setup-python@v6.2.0
+          with:
+            python-version-file: 'check-links/.python-version'
+
+        - name: Run pre-commit
+          uses: pre-commit/action@v3.0.1
+
+    pytest:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v6.0.2
+        - uses: actions/setup-python@v6.2.0
+          with:
+            python-version-file: 'check-links/.python-version'
+        - run: pip install psycopg2-binary requests boto3 pytest
+        - run: pytest check-links/tests/
+          env:
+            PYTHONPATH: check-links

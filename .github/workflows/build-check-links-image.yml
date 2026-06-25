@@ -1,0 +1,108 @@
+name: Build and push check-links image
+
+on:
+  workflow_call:
+    inputs:
+      buildType:
+        description: Decide on what to build
+        required: true
+        type: string
+      gitRef:
+        description: Commit, tag or branch name to deploy
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      buildType:
+        description: Decide on build type
+        required: true
+        type: choice
+        options:
+          - build_push
+          - build_push_with_gittag
+          - build_only
+      gitRef:
+        description: Commit, tag or branch name to deploy
+        required: false
+        type: string
+
+env:
+  BUILD_TYPE: ${{ inputs.buildType || 'build_push' }}
+  REGISTRY_BASE: ghcr.io/${{ github.repository }}/check-links
+
+jobs:
+  build_and_push:
+    name: Build and push check-links
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: docker/setup-docker-action@5fc00c3ecf2ef3efae431528032c7b9711e245d3 # v5.0.0
+        with:
+          version: "version=28.5.2"
+
+      - name: Login to GHCR
+        uses: docker/login-action@v4.2.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Git Checkout
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: ${{ inputs.gitRef || github.ref }}
+          show-progress: false
+
+      - name: Setup Docker BuildX
+        uses: docker/setup-buildx-action@v4
+
+      - name: Read version from build-config
+        id: version
+        run: |
+          version=$(yq '.apps.check-links.version' build-config.yaml)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Determine Image Tags
+        id: determine-image-tags
+        run: |
+          buildType="${{ env.BUILD_TYPE }}"
+          if [ "$buildType" = "build_push_with_gittag" ]; then
+            echo "GH_TAG=${{ inputs.gitRef || github.ref }}" >> "$GITHUB_ENV"
+          else
+            echo "GH_TAG=${{ github.sha }}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Generate Image Metadata
+        uses: docker/metadata-action@v6
+        id: metadata
+        with:
+          flavor: |
+            latest=false
+          images: |
+            ${{ env.REGISTRY_BASE }}
+          tags: |
+            type=raw,value=${{ env.GH_TAG }}
+            type=raw,value=v${{ steps.version.outputs.version }}
+            type=sha,format=short
+            type=sha,priority=100,format=long
+          labels: |
+            org.opencontainers.image.title=check-links
+            org.opencontainers.image.authors="National Data Library Engineering Team"
+            org.opencontainers.image.description="check-links image for data.gov.uk"
+            org.opencontainers.image.source="https://github.com/alphagov/datagovuk-scripts"
+            org.opencontainers.image.version=${{ steps.version.outputs.version }}
+            org.opencontainers.image.vendor=GDS
+
+      - name: Build and Push Check-Links Image
+        uses: docker/build-push-action@v7.2.0
+        with:
+          context: ./check-links
+          platforms: linux/arm64
+          push: ${{ env.BUILD_TYPE != 'build_only' }}
+          provenance: false
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache-from: type=gha,scope=check-links
+          cache-to: type=gha,scope=check-links,mode=max

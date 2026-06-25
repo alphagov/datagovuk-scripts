@@ -28,7 +28,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from python_scripts.check_links import Repository, setup_logging
+from check_links import Repository, setup_logging
 
 LOG_FILE = "check_links_updated_to_{state}.log"
 REINDEX_FILE = "{state}_packages_to_reindex_{timestamp}.txt"

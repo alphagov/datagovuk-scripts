@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  check-links:
+    container_name: check-links
+    build: ./check-links
+    env_file:
+      - .env
+    volumes:
+      - ./check-links:/app/check-links
+    external_links:
+      - db-2.10:db
+    networks:
+      - docker_ckan-2.10
+    command: bash -c "tail -f /dev/null"
+
+  local_aws_emulator:
+    image: floci/floci:latest
+    container_name: local_aws_emulator
+    environment:
+      - AWS_DEFAULT_REGION=eu-west-1
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - docker_ckan-2.10
+
+networks:
+  docker_ckan-2.10:
+    external: true

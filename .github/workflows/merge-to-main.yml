@@ -1,0 +1,33 @@
+name: Merge to main
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  check-links-ci:
+    uses: ./.github/workflows/check-links-ci.yml
+    permissions:
+      contents: read
+
+  check-links-trivy-scan:
+    uses: ./.github/workflows/check-links-trivy-scan.yml
+
+  build-check-links-image:
+    uses: ./.github/workflows/build-check-links-image.yml
+    with:
+      buildType: build_push
+      gitRef: ${{ github.sha }}
+    needs: [check-links-ci, check-links-trivy-scan]
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+  create-integration-pr:
+    uses: ./.github/workflows/create-integration-pr.yaml
+    needs: build-check-links-image
+    with:
+      gitRef: ${{ github.ref_name }}
+    secrets: inherit
