@@ -79,8 +79,6 @@ def get_resources_to_retry(csv_path):
             error_key = row["http-status"]
             if not error_key:
                 error_key = row["category"]
-            if error_key == "DNS_ERROR":
-                continue
             retry_resources[row["resource-id"]] = row
     return retry_resources
 
@@ -146,7 +144,7 @@ async def main(input_csv_file_path, output_csv_file_path, limit=None):
     # Initialize the queue and fill it up
     queue = asyncio.Queue()
     resources_to_retry = get_resources_to_retry(input_csv_file_path)
-    retry_urls = set((resource["resource-url"], resource["resource-id"]) for resource in resources_to_retry.values())
+    retry_urls = set((resource["resource-url"].strip(), resource["resource-id"]) for resource in resources_to_retry.values())
     urls_to_retry = list(retry_urls)
     if not limit:
         limit = len(retry_urls)
@@ -211,6 +209,7 @@ async def main(input_csv_file_path, output_csv_file_path, limit=None):
                 "original-http-status": original_row["http-status"],
                 "original-category": original_row["category"],
                 "original-error-detail": original_row["error-detail"],
+                "to-delete": "FALSE" if response_category == Category.OK else "TRUE",
             }
             writer.writerow(new_row)
 
