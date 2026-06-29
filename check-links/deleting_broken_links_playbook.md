@@ -29,7 +29,8 @@ The below are instructions to soft delete broken resource links from our databas
 
 ## Filter out deferred orgs
 
-> *prerequisites:*
+
+> **prerequisites:**
 >
 > ⚠️ Use the verified broken links CSV from the Transient errors script.
 
@@ -39,39 +40,36 @@ The below are instructions to soft delete broken resource links from our databas
 
     - Filter out organisations that have opted out
 
-1. Run the filter deferred orgs script
+2. Run the filter deferred orgs script and provide a list of excluded / deferred orgs e.g. --exclude example-org
 
     ```bash
     $ scripts/filter.py [broken links csv] [output file path e.g. broken_links_to_delete_20260619T0801.csv] --exclude abc-agency,def-agency​
     ```
 
-⚠️ output file name must be like `broken_links_to_delete_$TIMESTAMP.csv`
+    ⚠️ output file name must be like `broken_links_to_delete_$TIMESTAMP.csv`
 
-$TIMESTAMP is from check reports github repo 
+    > `$TIMESTAMP is from check reports github repo
 
-1. Conirm the count of filtered orgs match 
+3. Conirm the count of filtered orgs match
 
-2. Upload the filtered out broken links csv ( `broken_links_to_delete_$TIMESTAMP.csv` ) to the S3 ckan-output bucket 
+4. Upload the filtered out broken links csv ( `broken_links_to_delete_$TIMESTAMP.csv` ) to the S3 ckan-output bucket [**TODO:** is this still true?]
 
-    (It failed, so we uploaded it manually to a pod)
-Blocker ⚠️
+    (It failed, so we uploaded it manually to a pod - see below)
 
-    [ ] We need to be able to upload files to S3
+**Workaround:**
 
-    *Workaround:*
+[ ]  In govuk-dgu-charts repo under check_links-process.sh in the yaml cronjob template ckan/templates/cronjobs/check-links-process-script.yaml, comment out the deletion script run (process_check_links_report.py).
 
-    [ ]  In govuk-dgu-charts repo under check_links-process.sh in the yaml cronjob template ckan/templates/cronjobs/check-links-process-script.yaml, comment out the deletion script run (process_check_links_report.py).
+Also, comment out the solr reindex python script call.
 
-    Also, comment out the solr reindex python script call.
-
-    This is to upload to S3 and then run the commented out scripts manually
-    Deletion Process
+This is to upload to S3 and then run the commented out scripts manually
 
 ## Running the deletion + reindex script
 
-1. Create PR to update checklinks.report.timestamp in `values-[env].yml` in `govuk-dgu-charts` to the timestamp of the file e.g. `20260619T0801`
 
-2. Communicate actions to the team channel
+1. Create a PR to update the `checklinks.report.timestamp` in `values-[env].yml` in `govuk-dgu-charts` to the timestamp of the file e.g. `20260619T0801`
+
+2. Communicate to the team channel that you'll be running the deletion script on [environment]
 
 3. Merge PR
 
@@ -80,6 +78,7 @@ Blocker ⚠️
     `kubectl create job --from=cronjob/ckan-check-links-process [test-check-links-process-deletion-260626] -n datagovuk`
 
     ⚠️ Because of the workaround for s3 access we manually copied the file onto the pod after step 4.
+    [**TODO:** is this still true?]
 
 5. Exec onto the cronjob ckan pod
 
