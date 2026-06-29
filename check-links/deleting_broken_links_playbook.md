@@ -1,9 +1,10 @@
 # Playbook for soft deleting broken resource links
 
 1. Count active resources
-2. Filter out deferred orgs
-3. Upload to S3
-4. Run the deletion and SOLR reindex script
+2. Run a final broken links retry
+3. Filter out deferred orgs
+4. Upload to S3
+5. Run the deletion and SOLR reindex script
 
 The below are instructions to soft delete broken resource links from our database.
 
@@ -27,8 +28,23 @@ The below are instructions to soft delete broken resource links from our databas
 
 5. Note down the count of active resources.
 
-## Filter out deferred orgs
+## Run a final broken links retry
 
+This is so that our "to delete" spreadsheet is as up to date as possible.
+
+1. Execute a shell onto the CKAN pod
+
+2. Run the check links script in dry-run verbose mode:
+
+    ```bash
+        $ python check_links.py --mode dry-run --verbose
+    ```
+
+3. Download the report CSV — this becomes the input for the "Filter out deferred orgs" step.
+
+4. Re-run the transient errors
+
+## Filter out deferred orgs
 
 > **prerequisites:**
 >
