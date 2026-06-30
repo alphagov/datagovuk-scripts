@@ -42,7 +42,7 @@ This is so that our "to delete" spreadsheet is as up to date as possible.
 
 3. Download the report CSV — this becomes the input for the "Filter out deferred orgs" step.
 
-4. Re-run the transient errors
+4. Re-run the transient errors script
 
 ## Filter out deferred orgs
 
@@ -66,22 +66,15 @@ This is so that our "to delete" spreadsheet is as up to date as possible.
 
     > `$TIMESTAMP is from check reports github repo
 
-3. Conirm the count of filtered orgs match
+3. Conirm the count of filtered orgs match by running:
 
-4. Upload the filtered out broken links csv ( `broken_links_to_delete_$TIMESTAMP.csv` ) to the S3 ckan-output bucket [**TODO:** is this still true?]
+    ```sql
+    select count(*) from resource join package on resource.package_id = package.id where package.state = 'active' and resource.state = 'active';
+    ```
 
-    (It failed, so we uploaded it manually to a pod - see below)
-
-**Workaround:**
-
-[ ]  In govuk-dgu-charts repo under check_links-process.sh in the yaml cronjob template ckan/templates/cronjobs/check-links-process-script.yaml, comment out the deletion script run (process_check_links_report.py).
-
-Also, comment out the solr reindex python script call.
-
-This is to upload to S3 and then run the commented out scripts manually
+4. Upload the filtered out broken links csv ( `broken_links_to_delete_$TIMESTAMP.csv` ) to this repo `datagovuk-scripts/check-links/broken_links_to_delete_$TIMESTAMP.csv`
 
 ## Running the deletion + reindex script
-
 
 1. Create a PR to update the `checklinks.report.timestamp` in `values-[env].yml` in `govuk-dgu-charts` to the timestamp of the file e.g. `20260619T0801`
 
@@ -93,19 +86,16 @@ This is to upload to S3 and then run the commented out scripts manually
 
     `kubectl create job --from=cronjob/ckan-check-links-process [test-check-links-process-deletion-260626] -n datagovuk`
 
-    ⚠️ Because of the workaround for s3 access we manually copied the file onto the pod after step 4.
-    [**TODO:** is this still true?]
-
-5. Exec onto the cronjob ckan pod
-
-6. Run the script
-
-7. Sanity check the number of resources that will be deleted
-
-8. Monitor the cron-job in ARGO
+5. Monitor the cron-job in ARGO
 
 ## Post live verification
 
+- Verify number of active resources with the same SQL as earlier
+
+    ```sql
+    select count(*) from resource join package on resource.package_id = package.id where package.state='active' and resource.state = 'active';
+    ```
+
 - Check a sample of records in the database to confirm they have been soft deleted
 
-- After the SOLR index completes, verify on the [environent].data.gov.uk that the resource is no longer being displayed on the dataset/package
+- After the SOLR index completes, verify on the [environment].data.gov.uk that the resource is no longer being displayed on the dataset/package. Perhaps use a sample of 3 or 4 datasets to verify.
