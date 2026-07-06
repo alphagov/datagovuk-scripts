@@ -69,6 +69,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="directory for the reindex list (default: current directory). "
         "Log file is always written to the current directory.",
     )
+    parser.add_argument(
+        "--local",
+        action="store_true",
+        default=False,
+        help="Logs to file for local runs, otherwise logs to stdout for container runs",
+    )
     return parser.parse_args(argv)
 
 
@@ -149,7 +155,7 @@ def upload_to_s3(logger, output_report_path):
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
-    log_path = LOG_FILE.format(state=args.set_state)
+    log_path = LOG_FILE.format(state=args.set_state) if args.local else None
     reindex_path = os.path.join(
         args.output_dir, REINDEX_FILE.format(state=args.set_state, timestamp=timestamp)
     )
