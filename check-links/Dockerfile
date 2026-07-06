@@ -1,6 +1,7 @@
 FROM python:3.11.13-slim AS base
 
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && \ 
+    apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -g 900 appuser && useradd -u 900 -g 900 -r appuser
 
