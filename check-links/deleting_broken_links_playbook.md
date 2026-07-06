@@ -78,7 +78,7 @@ This is to filter out transient errors from the broken links report.
 
     - Download the broken links csv that we ran all the transient error runs on `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
 
-3. Run the filter deferred orgs script and provide a list of excluded / deferred orgs e.g. `--exclude example-org`
+3. Run the filter deferred orgs script and provide a list of excluded / deferred orgs e.g. `--exclude org-name=example-org`
 
     ```bash
         $ scripts/filter.py [broken links csv] [output file path e.g. broken_links_to_delete_20260619T0801.csv] --exclude org-name=abc-agency,def-agency​
