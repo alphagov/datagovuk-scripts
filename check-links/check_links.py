@@ -203,7 +203,7 @@ def session_factory(
         max_retries=retry,
         pool_connections=workers,
         pool_maxsize=workers * 2,
-        limit_statuses=(403, 429)
+        limit_statuses=(403, 429),
     )
     session.mount("http://", adapter)
     session.mount("https://", adapter)
@@ -572,9 +572,7 @@ def main(argv: list[str] | None = None) -> int:
     logger.info(f"reindex path: {reindex_path}")
     logger.info(f"verbose: {args.verbose}")
     logger.info(f"workers: {WORKERS}, http_timeout: {HTTP_TIMEOUT}")
-    logger.info(
-        f"per-host rate: {PER_HOST_PER_SECOND}/s, burst: {PER_HOST_BURST}"
-    )
+    logger.info(f"per-host rate: {PER_HOST_PER_SECOND}/s, burst: {PER_HOST_BURST}")
     logger.info(f"local: {args.local}")
 
     dsn = os.environ.get("POSTGRES_URL")

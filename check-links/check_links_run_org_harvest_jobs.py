@@ -28,7 +28,7 @@ def get_harvest_source_for_org(connection: psycopg2.extensions.connection, org: 
     cursor = connection.cursor()
     sql = """
     SELECT harvest_source.id FROM harvest_source, "group"
-    WHERE "group".id = harvest_source.publisher_id 
+    WHERE "group".id = harvest_source.publisher_id
     AND harvest_source.active = true AND "group".name = %s
     GROUP BY harvest_source.id;
     """
@@ -48,13 +48,13 @@ def run_harvester_subprocess(harvest_source_id: str) -> tuple[str, bool, str]:
 
 def run_harvest_jobs(logger: logging.Logger, report_path: str) -> None:
     """Identifies unique organisations in the report to run harvest jobs for."""
-    POSTGRES_URL = os.environ.get('POSTGRES_URL')
+    POSTGRES_URL = os.environ.get("POSTGRES_URL")
     if not POSTGRES_URL:
         logger.error("POSTGRES_URL env var is not set")
         return 1
 
     with open(report_path, "r", newline="", encoding="utf-8") as csvfile:
-        reader = csv.DictReader(csvfile, fieldnames=REPORT_HEADERS)        
+        reader = csv.DictReader(csvfile, fieldnames=REPORT_HEADERS)
         rows = list(reader)
 
     rows.pop(0)
@@ -76,23 +76,37 @@ def run_harvest_jobs(logger: logging.Logger, report_path: str) -> None:
         workers = os.cpu_count() or 1
         failures = []
         with ProcessPoolExecutor(max_workers=workers) as executor:
-            future_to_source = {executor.submit(run_harvester_subprocess, hs): hs for hs in harvest_sources}
+            future_to_source = {
+                executor.submit(run_harvester_subprocess, hs): hs
+                for hs in harvest_sources
+            }
 
             for future in as_completed(future_to_source):
                 hs = future_to_source[future]
                 try:
                     source_id, success, error = future.result()
                     if success:
-                        logger.info(f"Harvest job completed for harvest source: {source_id}")
+                        logger.info(
+                            f"Harvest job completed for harvest source: {source_id}"
+                        )
                     else:
-                        logger.error(f"Harvest job failed for harvest source: {source_id}. Error: {error}")
+                        logger.error(
+                            f"Harvest job failed for harvest source: {source_id}. Error: {error}"
+                        )
                         failures.append(source_id)
                 except Exception:
-                    logger.exception("Unexpected exception while running harvest source: %s", hs)
+                    logger.exception(
+                        "Unexpected exception while running harvest source: %s", hs
+                    )
                     failures.append(hs)
 
         if failures:
-            logger.error("%d harvest source(s) failed for organisation %s: %s", len(failures), org, ", ".join(failures))
+            logger.error(
+                "%d harvest source(s) failed for organisation %s: %s",
+                len(failures),
+                org,
+                ", ".join(failures),
+            )
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -119,7 +133,9 @@ def main(argv: list[str] | None = None) -> int:
 
     error = run_harvest_jobs(logger, report_path)
     if not error:
-        logger.info("Harvest jobs completed successfully for report file: %s", report_path)
+        logger.info(
+            "Harvest jobs completed successfully for report file: %s", report_path
+        )
         return 0
     return 1
 
