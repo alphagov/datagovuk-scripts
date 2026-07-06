@@ -73,9 +73,10 @@ def setup_logging(log_path: str) -> logging.Logger:
     console = logging.StreamHandler()
     console.setFormatter(fmt)
     logger.addHandler(console)
-    file_handler = logging.FileHandler(log_path)
-    file_handler.setFormatter(fmt)
-    logger.addHandler(file_handler)
+    if log_path:
+        file_handler = logging.FileHandler(log_path)
+        file_handler.setFormatter(fmt)
+        logger.addHandler(file_handler)
     return logger
 
 
@@ -552,7 +553,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M")
-    log_path = LOG_FILE
+    log_path = LOG_FILE if args.local else None
     report_path = os.path.join(
         args.output_dir,
         REPORT_FILE.format(
