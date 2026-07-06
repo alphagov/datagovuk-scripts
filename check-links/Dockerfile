@@ -9,7 +9,7 @@ WORKDIR /app/check-links
 COPY . .
 
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
-RUN pip install --no-cache-dir psycopg2-binary requests boto3
+RUN pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONPATH=/app/check-links
 

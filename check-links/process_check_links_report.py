@@ -29,6 +29,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from check_links import Repository, setup_logging
+from lib.s3 import CkanOutputBucket
 
 LOG_FILE = "check_links_updated_to_{state}.log"
 REINDEX_FILE = "{state}_packages_to_reindex_{timestamp}.txt"
@@ -136,6 +137,15 @@ def apply(
     )
 
 
+def upload_to_s3(logger, output_report_path):
+    bucket = CkanOutputBucket()
+    bucket.upload_to_s3(output_report_path, "check_links")
+    logger.info(f"uploaded {output_report_path} to S3 bucket {bucket.bucket.name}")
+    logger.info("=== check_links/ ls")
+    for filename in bucket.get_s3_ls(path="check_links/"):
+        logger.info(filename)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
@@ -168,6 +178,8 @@ def main(argv: list[str] | None = None) -> int:
             mode=args.mode,
             set_state=args.set_state,
         )
+
+    upload_to_s3(logger, output_report_path)
     return 0
 
 
