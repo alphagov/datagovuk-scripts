@@ -1,13 +1,12 @@
 # Playbook for soft deleting broken resource links in Production
 
 1. [Count active resources](#count-active-resources)
-2. [Run the broken links script for a final time](#run-the-broken-links-script-for-a-final-time)
-3. [Re-run the transient errors workflow](#re-run-the-transient-errors-workflow)
-4. [Filter out deferred orgs](#filter-out-deferred-orgs)
-5. [Add the final report to the datagovuk-scripts repo](#add-the-final-report-to-the-datagovuk-scripts-repo)
-6. [Create a PR to add the checklinksreport block to chartsapp-of-appsvalues-productionyaml](#create-a-pr-to-add-the-checklinksreport-block-to-chartsapp-of-appsvalues-productionyaml)
-7. [Running the deletion script](#running-the-deletion-script)
-8. [Post live verification](#post-live-verification)
+2. [Re-run the transient errors workflow](#re-run-the-transient-errors-workflow)
+3. [Filter out deferred orgs](#filter-out-deferred-orgs)
+4. [Add the final report to the datagovuk-scripts repo](#add-the-final-report-to-the-datagovuk-scripts-repo)
+5. [Create a PR to add the checklinksreport block to chartsapp-of-appsvalues-productionyaml](#create-a-pr-to-add-the-checklinksreport-block-to-chartsapp-of-appsvalues-productionyaml)
+6. [Running the deletion script](#running-the-deletion-script)
+7. [Post live verification](#post-live-verification)
 
 The below are instructions to soft delete broken resource links from our **production database**.
 
@@ -17,11 +16,11 @@ The below are instructions to soft delete broken resource links from our **produ
 
 2. Find the CKAN app pod
 
-    `$ kubectl get pods -n datagovuk-prod`
+    `$ kubectl get pods -n datagovuk`
 
 3. Execute a shell into it
 
-    `$ kubectl exec -it <ckan-pod-name> -n datagovuk-prod -- bash`
+    `$ kubectl exec -it <ckan-pod-name> -n datagovuk -- bash`
 
 4. Connect to the postgres db e.g. `psql -U ckan`
 
@@ -33,27 +32,6 @@ The below are instructions to soft delete broken resource links from our **produ
 
 6. Note down the count of active resources.
 
-## Run the broken links script for a final time
-
-This is so that our "to delete" spreadsheet is as up to date as possible.
-
-1. Execute a shell onto the CKAN pod
-
-2. Dry-run the check links script
-
-    ```bash
-        $ python check_links.py --mode dry-run
-    ```
-
-<!-- 3. Run the check links script:
-
-    ```bash
-        $ python check_links.py --mode live
-    ``` -->
-    <!-- [TO CONFIRM: does check_links.py delete any records? ] -->
-
-4. Download the report CSV — this becomes the input for the next step.
-
 ## Re-run the transient errors workflow
 
 This is to filter out transient errors from the broken links report.
@@ -62,7 +40,7 @@ This is to filter out transient errors from the broken links report.
 
 2. Follow the `check-links-analysis/README.md` to filter out transient errors.
 
-3. Use the CSV from the previous step (report CSV)
+3. Use the CSVs that we sent to publishers: part 1 and part 2
 
 4. Run the retry once or twice on the report csv. This outputs a retry CSV e.g. `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
 
