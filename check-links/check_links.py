@@ -26,11 +26,10 @@ from urllib.parse import urlsplit
 
 import psycopg2
 import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
 
 from lib.s3 import CkanOutputBucket
-
+from requests_ratelimiter import LimiterAdapter
+from urllib3.util.retry import Retry
 
 LOG_FILE = "check_links.log"
 REPORT_FILE = "check_links_report_{timestamp}{verbose}.csv"
@@ -40,6 +39,8 @@ HTTP_TIMEOUT = (5, 5)  # (connect, read) seconds
 WORKERS = 50
 MAX_INFLIGHT = WORKERS * 4
 HEAD_FALLBACK_STATUSES = {400, 403, 405, 501}
+PER_HOST_PER_SECOND = 2  # max reqs per/sec per host can increase if needed
+PER_HOST_BURST = 5  # up to 5 reqs per/sec burst allowed
 
 REPORT_HEADERS = [
     "datagovuk-url",
@@ -187,16 +188,22 @@ def session_factory(
     session.headers.update({"User-Agent": USER_AGENT, "Accept": "*/*"})
     retry = Retry(
         total=3,
-        status_forcelist=[500, 502, 503, 504],
+        status_forcelist=[429, 500, 502, 503, 504],
         allowed_methods=["HEAD", "GET"],
         backoff_factor=0.5,
         respect_retry_after_header=True,
         raise_on_status=False,
     )
-    adapter = HTTPAdapter(
+    # LimiterAdapter is an HTTPAdapter drop in, that maintains same retry
+    # config with in memory per host limit, no storage backend
+    adapter = LimiterAdapter(
+        per_second=PER_HOST_PER_SECOND,
+        burst=PER_HOST_BURST,
+        per_host=True,
         max_retries=retry,
         pool_connections=workers,
         pool_maxsize=workers * 2,
+        limit_statuses=(403, 429)
     )
     session.mount("http://", adapter)
     session.mount("https://", adapter)
@@ -208,6 +215,7 @@ def fetch_status(
     url: str,
     timeout: tuple[float, float] = HTTP_TIMEOUT,
 ) -> int:
+
     with session.head(url, timeout=timeout, allow_redirects=True) as resp:
         status = resp.status_code
 
@@ -316,7 +324,7 @@ class Repository:
                     package_id=package_id,
                     package_name=package_name,
                     resource_id=resource_id,
-                    url=url,
+                    url=url.strip(),
                     org_name=org_name,
                     org_id=org_id,
                     resource_created=resource_created,
@@ -359,6 +367,15 @@ class Repository:
             if rowcount > 0:
                 cur.execute(self.UPDATE_PACKAGE_MTIME_SQL, {"package_id": package_id})
         return rowcount
+
+    def update_resource(self, resource_id: str, package_id: str, action: str) -> int:
+        match action:
+            case "deleted":
+                return self.mark_resource_deleted(resource_id, package_id)
+            case "active":
+                return self.mark_resource_active(resource_id, package_id)
+            case _:
+                return 0
 
 
 class Reporter:
@@ -440,6 +457,7 @@ def run(
     limit: int | None = None,
     verbose: bool = False,
 ) -> None:
+
     rows_from_db = repository.fetch_resources(limit)
     rows = interleave_rows_by_host(rows_from_db)
     logger.info(f"loaded {len(rows)} resources")
@@ -554,6 +572,9 @@ def main(argv: list[str] | None = None) -> int:
     logger.info(f"reindex path: {reindex_path}")
     logger.info(f"verbose: {args.verbose}")
     logger.info(f"workers: {WORKERS}, http_timeout: {HTTP_TIMEOUT}")
+    logger.info(
+        f"per-host rate: {PER_HOST_PER_SECOND}/s, burst: {PER_HOST_BURST}"
+    )
     logger.info(f"local: {args.local}")
 
     dsn = os.environ.get("POSTGRES_URL")

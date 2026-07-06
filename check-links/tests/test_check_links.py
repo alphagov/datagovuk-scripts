@@ -11,6 +11,7 @@ from check_links import (
     Category,
     CheckResult,
     Reporter,
+    Repository,
     ResourceRow,
     check_task,
     classify_response,
@@ -73,7 +74,7 @@ def _stub_dns_connection_error() -> requests.ConnectionError:
     # stub error requests raises when the host fails to resolve.
     return requests.ConnectionError(
         "HTTPSConnectionPool(host='no-such-host.example', port=443): Max retries "
-        'exceeded (Caused by NameResolutionError("Failed to resolve '
+        "exceeded (Caused by NameResolutionError(\"Failed to resolve "
         "'no-such-host.example' ([Errno -2] Name or service not known)\"))"
     )
 
@@ -97,11 +98,7 @@ def _stub_dns_connection_error() -> requests.ConnectionError:
             requests.ConnectionError(ConnectionRefusedError(111, "Connection refused")),
             Category.CONNECTION_REFUSED,
         ),
-        (
-            None,
-            requests.exceptions.SSLError("bad handshake"),
-            Category.CONNECTION_ERROR,
-        ),
+        (None, requests.exceptions.SSLError("bad handshake"), Category.CONNECTION_ERROR),
         (None, ValueError("some other error"), Category.OTHER_ERROR),
         (None, None, Category.OTHER_ERROR),
     ],
@@ -249,7 +246,7 @@ def test_session_factory_retry_does_not_raise_on_status():
     session = session_factory()
     retry = session.get_adapter("https://opendata.gov.uk").max_retries
     assert retry.raise_on_status is False
-    assert set(retry.status_forcelist) == {500, 502, 503, 504}
+    assert set(retry.status_forcelist) == {429, 500, 502, 503, 504}
 
 
 def test_check_task_falls_back_to_get_for_head_fallback_status(make_row):
@@ -315,3 +312,36 @@ def test_interleave_rows_by_host_preserves_order_for_single_host(make_row):
     ]
 
     assert interleave_rows_by_host(rows) == rows
+
+def test_fetch_resources_strips_whitespace_from_urls():
+    mock_connection = MagicMock()
+    mock_cursor = MagicMock()
+    mock_cursor.__enter__ = Mock(return_value=mock_cursor)
+    mock_connection.cursor.return_value = mock_cursor
+    mock_cursor.__iter__ = Mock(
+        return_value=iter(
+            [
+                (
+                    "package_id",
+                    "package_name",
+                    "resource_id",
+                    "  https://test.com/fake.csv  ",
+                    "org_name",
+                    "org_id",
+                    datetime(2026, 1, 1),
+                    datetime(2026, 1, 1),
+                    datetime(2026, 1, 1),
+                    datetime(2026, 1, 1),
+                    datetime(2026, 1, 1),
+                    "guid",
+                ),
+            ]
+        )
+    )
+
+    repo = Repository.__new__(Repository)
+    repo._conn = mock_connection
+
+    resource_rows = repo.fetch_resources()
+
+    assert resource_rows[0].url == "https://test.com/fake.csv"
