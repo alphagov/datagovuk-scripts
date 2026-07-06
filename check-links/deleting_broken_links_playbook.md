@@ -1,12 +1,13 @@
 # Playbook for soft deleting broken resource links in Production
 
-1. Count active resources
-2. Run the broken links script for a final time
-3. Re-run the transient errors workflow
-4. Filter out deferred orgs
-5. Add the final report to the `datagovuk-scripts` repo
-6. Create a PR to add the `checklinks.report` block to `charts/app-of-apps/values-production.yaml`
-7. Run the deletion and SOLR reindex script
+1. [Count active resources](#count-active-resources)
+2. [Run the broken links script for a final time](#run-the-broken-links-script-for-a-final-time)
+3. [Re-run the transient errors workflow](#re-run-the-transient-errors-workflow)
+4. [Filter out deferred orgs](#filter-out-deferred-orgs)
+5. [Add the final report to the datagovuk-scripts repo](#add-the-final-report-to-the-datagovuk-scripts-repo)
+6. [Create a PR to add the checklinksreport block to chartsapp-of-appsvalues-productionyaml](#create-a-pr-to-add-the-checklinksreport-block-to-chartsapp-of-appsvalues-productionyaml)
+7. [Running the deletion script](#running-the-deletion-script)
+8. [Post live verification](#post-live-verification)
 
 The below are instructions to soft delete broken resource links from our **production database**.
 
@@ -38,47 +39,58 @@ This is so that our "to delete" spreadsheet is as up to date as possible.
 
 1. Execute a shell onto the CKAN pod
 
-2. Run the check links script:
+2. Dry-run the check links script
+
+    ```bash
+        $ python check_links.py --mode dry-run
+    ```
+
+<!-- 3. Run the check links script:
 
     ```bash
         $ python check_links.py --mode live
-    ```
+    ``` -->
+    <!-- [TO CONFIRM: does check_links.py delete any records? ] -->
 
-3. Download the report CSV — this becomes the input for the next step.
+4. Download the report CSV — this becomes the input for the next step.
 
 ## Re-run the transient errors workflow
 
 This is to filter out transient errors from the broken links report.
 
-1. In the `datagovuk-scripts` repo, switch to the branch `check-links-transient` [TODO: is this gonna be `datagovuk-scripts/check-links-transient` ???? ]
+1. Create a local branch in the `datagovuk-scripts` repo
+
 2. Follow the `check-links-analysis/README.md` to filter out transient errors.
+
 3. Use the CSV from the previous step (report CSV)
+
 4. Run the retry once or twice on the report csv. This outputs a retry CSV e.g. `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
+
 5. Create a pull request in `datagovuk-scripts`, request for a code review then merge to main on approval.
+
 6. Use the retry CSV as the input to the filtering step, below.
 
 ## Filter out deferred orgs
 
 1. Create a new branch in `datagovuk-scripts` e.g. `upload-filtered-orgs-report`
-2. Go to `datagovuk-scripts/check-links-transient`
+
+2. Go to `datagovuk-scripts/check-links-analysis`
 
     - Download the broken links csv that we ran all the transient error runs on `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
 
 3. Run the filter deferred orgs script and provide a list of excluded / deferred orgs e.g. `--exclude example-org`
 
     ```bash
-        $ scripts/filter.py [broken links csv] [output file path e.g. broken_links_to_delete_20260619T0801.csv] --exclude abc-agency,def-agency​
+        $ scripts/filter.py [broken links csv] [output file path e.g. broken_links_to_delete_20260619T0801.csv] --exclude org-name=abc-agency,def-agency​
     ```
 
     ⚠️ output file name must be like `broken_links_to_delete_<timestamp>.csv`
 
     > `<timestamp>` is from check reports github repo
 
-4. Confirm the count of filtered orgs match by running:
+4. Validate that it worked:
 
-    ```sql
-        select count(*) from resource join package on resource.package_id = package.id where package.state = 'active' and resource.state = 'active';
-    ```
+- Confirm that the CSV contains less resources and that the excluded orgs aren't in the output csv
 
 ## Add the final report to the `datagovuk-scripts` repo
 
@@ -114,7 +126,7 @@ This is to filter out transient errors from the broken links report.
 
 2. Upon approval of the previous step's pull request, merge the PR
 
-3. Swith your local kubernetes context to production like `kubectl config use-context govuk-production`
+3. Switch your local kubernetes context to production like `kubectl config use-context govuk-production`
 
 4. Create the Cron Job manually
 
