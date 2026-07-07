@@ -12,21 +12,25 @@ The below are instructions to soft delete broken resource links from our **produ
 
 ## Count active resources
 
-1. Switch your local kubernetes context to production like `kubectl config use-context govuk-production`
+1. Switch your local kubernetes context to production like
+
+    ```bash
+    kubectl config use-context govuk-production
+    ```
 
 2. Execute a shell into a CKAN deployment pod
 
-    `$ kubectl exec -it deploy/ckan-ckan -n datagovuk -- bash`
-
-3. Connect to the postgres db e.g. `psql $CKAN_SQLALCHEMY_URL`
-
-4. Execute the below sql
-
-    ```sql
-        select count(*) from resource join package on resource.package_id = package.id where package.state = 'active' and resource.state = 'active';
+    ```bash
+    kubectl exec -it deploy/ckan-ckan -n datagovuk -- bash
     ```
 
-5. Note down the count of active resources.
+3. Run this command to execute the sql query
+
+    ```bash
+        psql $CKAN_SQLALCHEMY_URL -c "select count(*) from resource join package on resource.package_id = package.id where package.state = 'active' and resource.state = 'active';"
+    ```
+
+4. Note down the count of active resources.
 
 ## Re-run the transient errors workflow
 
@@ -52,10 +56,10 @@ This is to filter out transient errors from the broken links report.
 
 3. Run the filter deferred orgs script and provide a list of excluded / deferred orgs e.g. `--exclude org-name=example-org`
 
-    The list of exluded organisations can be found in Sharepoint under `2026 06 Broken links responses`
+    The list of excluded organisations can be found in Sharepoint under `2026 06 Broken links responses`
 
     ```bash
-        $ scripts/filter.py [broken links csv] [output file path e.g. broken_links_to_delete_20260619T0801.csv] --exclude org-name=abc-agency,def-agency​
+    scripts/filter.py [broken links csv] [output file path e.g. broken_links_to_delete_20260619T0801.csv] --exclude org-name=abc-agency,def-agency​
     ```
 
     ⚠️ output file name must be like `broken_links_to_delete_<timestamp>.csv`
@@ -110,11 +114,7 @@ This is to filter out transient errors from the broken links report.
 
 ## Post live verification
 
-- Verify number of active resources with the same SQL as earlier
-
-    ```sql
-    select count(*) from resource join package on resource.package_id = package.id where package.state='active' and resource.state = 'active';
-    ```
+- Verify number of active resources with the same SQL as earlier. Found here [Count active resources](#count-active-resources)
 
 - Check a sample of records in the database to confirm they have been soft deleted
 
