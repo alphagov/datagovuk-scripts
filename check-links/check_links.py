@@ -2,8 +2,7 @@
 
 For each URL:
   * Classifies the response (OK / 404 / 410 / other 4xx / 5xx / timeout / etc.).
-  * in `dry-run` mode no db writes - just report/log output
-  * in `live' mode: if 404 or 410, updates resource `state` to 'deleted'
+  * create report/log output
   * and updates package `metadata_modified` to NOW().
 
 Writes `check_links_report_{ts}.csv` (one row per URL) and
@@ -454,7 +453,6 @@ def run(
     repository: Repository,
     report_path: str,
     reindex_path: str,
-    mode: str,
     limit: int | None = None,
     verbose: bool = False,
 ) -> None:
@@ -493,10 +491,6 @@ def run(
                     )
                     if result.to_delete:
                         to_reindex.add(result.row.package_id)
-                        if mode == "live":
-                            repository.mark_resource_deleted(
-                                result.row.resource_id, result.row.package_id
-                            )
                 except Exception:
                     logger.exception("URL check task failed")
                 # as each future completes, add one to top up the pool
@@ -516,12 +510,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         description="Tuning knobs (workers, timeouts) are module-level constants "
         "at the top of this file — edit there to change. Filenames are timestamped "
         "templates (also module-level constants).",
-    )
-    parser.add_argument(
-        "--mode",
-        choices=["dry-run", "live"],
-        default="dry-run",
-        help="'dry-run' (default) reports only; 'live' marks 404/410 resources deleted",
     )
     parser.add_argument(
         "--limit",
@@ -567,7 +555,6 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
     logger = setup_logging(log_path)
-    logger.info(f"mode: {args.mode}")
     logger.info(f"limit: {args.limit}")
     logger.info(f"report path: {report_path}")
     logger.info(f"reindex path: {reindex_path}")
@@ -587,7 +574,6 @@ def main(argv: list[str] | None = None) -> int:
             repository=repository,
             report_path=report_path,
             reindex_path=reindex_path,
-            mode=args.mode,
             limit=args.limit,
             verbose=args.verbose,
         )
