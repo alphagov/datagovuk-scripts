@@ -4,17 +4,15 @@ import sys
 import time
 import random
 from enum import StrEnum
-from collections import defaultdict
-from pprint import pprint
 import asyncio
 from urllib.parse import urlparse
 import aiohttp
 from aiolimiter import AsyncLimiter
 
 # Configuration
-NUM_WORKERS = 100                   # Fixed number of parallel worker tasks
-RATE_LIMIT_PER_HOST = 2             # Max requests per host...
-RATE_LIMIT_PERIOD = 2.0             # ...per this many seconds
+NUM_WORKERS = 100  # Fixed number of parallel worker tasks
+RATE_LIMIT_PER_HOST = 2  # Max requests per host...
+RATE_LIMIT_PERIOD = 2.0  # ...per this many seconds
 
 
 class Category(StrEnum):
@@ -67,12 +65,13 @@ def classify_response(
             print(f"Could not classify error {exc.__class__.__name__}")
             return Category.OTHER_ERROR, f"unexpected status {status_code}"
 
+
 def get_resources_to_retry(csv_path):
     retry_resources = {}
-    
+
     with open(csv_path, "r") as f:
         reader = csv.DictReader(f)
-        
+
         for row in reader:
             if row["category"] == "OK":
                 continue
@@ -82,30 +81,32 @@ def get_resources_to_retry(csv_path):
             retry_resources[row["resource-id"]] = row
     return retry_resources
 
+
 # Shared dictionary to store the rate limiters for each individual domain
 host_limiters = {}
+
 
 def get_limiter_for_url(url: str) -> AsyncLimiter:
     """Extracts the domain from the URL and gets/creates its specific limiter."""
     parsed_url = urlparse(url)
     host = parsed_url.netloc or "unknown"
-    
+
     if host not in host_limiters:
         host_limiters[host] = AsyncLimiter(RATE_LIMIT_PER_HOST, RATE_LIMIT_PERIOD)
-        
+
     return host_limiters[host]
 
 
 async def fetch_url(session: aiohttp.ClientSession, url: str, resource_id: str) -> dict:
     """Fetches a single URL obeying per-host rate limits."""
     limiter = get_limiter_for_url(url)
-    
+
     # Obey per-host rate limit (pauses if this specific host is hot)
     async with limiter:
         try:
-            timeout = aiohttp.ClientTimeout(total=10) 
+            timeout = aiohttp.ClientTimeout(total=10)
             async with session.get(url, timeout=timeout) as response:
-                text = await response.text(errors="replace")
+                text = await response.text(errors="replace")  # noqa: F841
                 return {
                     "url": url,
                     "status": response.status,
@@ -121,9 +122,13 @@ async def fetch_url(session: aiohttp.ClientSession, url: str, resource_id: str) 
                 "resource_id": resource_id,
             }
 
+
 processed_count = 0
 
-async def worker(queue: asyncio.Queue, session: aiohttp.ClientSession, shared_results: list):
+
+async def worker(
+    queue: asyncio.Queue, session: aiohttp.ClientSession, shared_results: list
+):
     """A persistent worker that pulls URLs from the queue and processes them."""
     global processed_count
     while True:
@@ -144,7 +149,10 @@ async def main(input_csv_file_path, output_csv_file_path, limit=None):
     # Initialize the queue and fill it up
     queue = asyncio.Queue()
     resources_to_retry = get_resources_to_retry(input_csv_file_path)
-    retry_urls = set((resource["resource-url"].strip(), resource["resource-id"]) for resource in resources_to_retry.values())
+    retry_urls = set(
+        (resource["resource-url"].strip(), resource["resource-id"])
+        for resource in resources_to_retry.values()
+    )
     urls_to_retry = list(retry_urls)
     if not limit:
         limit = len(retry_urls)
@@ -160,14 +168,14 @@ async def main(input_csv_file_path, output_csv_file_path, limit=None):
         for _ in range(NUM_WORKERS):
             task = asyncio.create_task(worker(queue, session, shared_results))
             workers.append(task)
-            
+
         # Wait until the queue is completely empty and all items are processed
         await queue.join()
-        
+
         # Cancel our persistent workers since their work is done
         for worker_task in workers:
             worker_task.cancel()
-            
+
         # Wait for all workers to gracefully acknowledge cancellation
         await asyncio.gather(*workers, return_exceptions=True)
 
@@ -200,7 +208,9 @@ async def main(input_csv_file_path, output_csv_file_path, limit=None):
         for result in shared_results:
             resource_id = result["resource_id"]
             original_row = resources_to_retry[resource_id]
-            response_category, response_detail = classify_response(result["status"], result["error"])
+            response_category, response_detail = classify_response(
+                result["status"], result["error"]
+            )
             new_row = {
                 **original_row,
                 "http-status": result["status"] or "",
@@ -215,18 +225,30 @@ async def main(input_csv_file_path, output_csv_file_path, limit=None):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="A script for retrying requests to broken links for data.gov.uk")
-    parser.add_argument("input_csv_file_path", type=str, help="The CSV file of a previous link check/retry run")
-    parser.add_argument("output_csv_file_path", type=str, help="Path for CSV file to save results to")
-    parser.add_argument("-l", "--limit", type=int, default=None, help="Maximum number of URLs to check")
+    parser = argparse.ArgumentParser(
+        description="A script for retrying requests to broken links for data.gov.uk"
+    )
+    parser.add_argument(
+        "input_csv_file_path",
+        type=str,
+        help="The CSV file of a previous link check/retry run",
+    )
+    parser.add_argument(
+        "output_csv_file_path", type=str, help="Path for CSV file to save results to"
+    )
+    parser.add_argument(
+        "-l", "--limit", type=int, default=None, help="Maximum number of URLs to check"
+    )
     args = parser.parse_args()
     return args
 
 
 if __name__ == "__main__":
     start = time.time()
-    print(f"Starting worker pool to process URLs...")
+    print("Starting worker pool to process URLs...")
     args = parse_args()
-    asyncio.run(main(args.input_csv_file_path, args.output_csv_file_path, limit=args.limit))
+    asyncio.run(
+        main(args.input_csv_file_path, args.output_csv_file_path, limit=args.limit)
+    )
     time_taken = time.time() - start
     print(f"All URLs processed successfully in {time_taken}S.")

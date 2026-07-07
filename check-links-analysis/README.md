@@ -23,7 +23,7 @@ uv run report.py -h
 ## Reports
 
 The directory also holds CSV files relating to link checking activity.
-`reports/check-links-output/` contains outputs from our check links scripts in 
+`reports/check-links-output/` contains outputs from our check links scripts in
 https://github.com/alphagov/ckanext-datagovuk
 `reports/retry/` contains outputs from our retry scripts in this directory.
 
