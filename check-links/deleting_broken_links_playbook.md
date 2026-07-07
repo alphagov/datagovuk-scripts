@@ -14,23 +14,19 @@ The below are instructions to soft delete broken resource links from our **produ
 
 1. Switch your local kubernetes context to production like `kubectl config use-context govuk-production`
 
-2. Find the CKAN app pod
+2. Execute a shell into the CKAN pod
 
-    `$ kubectl get pods -n datagovuk`
+    `$ kubectl exec -it deploy/ckan-ckan  -n datagovuk -- bash`
 
-3. Execute a shell into it
+3. Connect to the postgres db e.g. `psql -U ckan`
 
-    `$ kubectl exec -it <ckan-pod-name> -n datagovuk -- bash`
-
-4. Connect to the postgres db e.g. `psql -U ckan`
-
-5. Execute the below sql
+4. Execute the below sql
 
     ```sql
         select count(*) from resource join package on resource.package_id = package.id where package.state = 'active' and resource.state = 'active';
     ```
 
-6. Note down the count of active resources.
+5. Note down the count of active resources.
 
 ## Re-run the transient errors workflow
 
@@ -42,7 +38,7 @@ This is to filter out transient errors from the broken links report.
 
 3. Use the CSVs that we sent to publishers: part 1 and part 2
 
-4. Run the retry once or twice on the report csv. This outputs a retry CSV e.g. `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
+4. Run the retry once or twice on **both** report CSVs. This outputs a retry CSV e.g. `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
 
 5. Create a pull request in `datagovuk-scripts`, request for a code review then merge to main on approval.
 
