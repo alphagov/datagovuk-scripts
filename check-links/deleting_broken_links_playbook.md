@@ -4,7 +4,7 @@
 2. [Re-run the transient errors workflow](#re-run-the-transient-errors-workflow)
 3. [Filter out deferred orgs](#filter-out-deferred-orgs)
 4. [Add the final report to the datagovuk-scripts repo](#add-the-final-report-to-the-datagovuk-scripts-repo)
-5. [Create a PR to add the checklinksreport block to chartsapp-of-appsvalues-productionyaml](#create-a-pr-to-add-the-checklinksreport-block-to-chartsapp-of-appsvalues-productionyaml)
+5. [Create a PR to add the check links report block to charts app-of-apps values-production.yaml](#create-a-pr-to-add-the-checklinksreport-block-to-chartsapp-of-appsvalues-productionyaml)
 6. [Running the deletion script](#running-the-deletion-script)
 7. [Post live verification](#post-live-verification)
 
