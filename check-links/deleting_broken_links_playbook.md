@@ -2,9 +2,9 @@
 
 1. [Count active resources](#count-active-resources)
 2. [Re-run the transient errors workflow](#re-run-the-transient-errors-workflow)
-3. [Filter out deferred orgs](#filter-out-deferred-orgs)
+3. [Filter out deferred organisations](#filter-out-deferred-organisations)
 4. [Add the final report to the datagovuk-scripts repo](#add-the-final-report-to-the-datagovuk-scripts-repo)
-5. [Create a PR to add the check links report block to charts app-of-apps values-production.yaml](#create-a-pr-to-add-the-checklinksreport-block-to-chartsapp-of-appsvalues-productionyaml)
+5. [Create a PR to add the check links report block to govuk-dgu-charts](#create-a-pr-to-add-the-check-links-report-block-to-govuk-dgu-charts)
 6. [Running the deletion script](#running-the-deletion-script)
 7. [Post live verification](#post-live-verification)
 
@@ -14,11 +14,11 @@ The below are instructions to soft delete broken resource links from our **produ
 
 1. Switch your local kubernetes context to production like `kubectl config use-context govuk-production`
 
-2. Execute a shell into the CKAN pod
+2. Execute a shell into a CKAN deployment pod
 
-    `$ kubectl exec -it deploy/ckan-ckan  -n datagovuk -- bash`
+    `$ kubectl exec -it deploy/ckan-ckan -n datagovuk -- bash`
 
-3. Connect to the postgres db e.g. `psql -U ckan`
+3. Connect to the postgres db e.g. `psql $CKAN_SQLALCHEMY_URL`
 
 4. Execute the below sql
 
@@ -36,15 +36,13 @@ This is to filter out transient errors from the broken links report.
 
 2. Follow the `check-links-analysis/README.md` to filter out transient errors.
 
-3. Use the CSVs that we sent to publishers: part 1 and part 2
+3. Use the sorted CSV that we sent to publishers
 
-4. Run the retry once or twice on **both** report CSVs. This outputs a retry CSV e.g. `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
+4. Run the retry once or twice on the sorted report CSV. This outputs a retry CSV e.g. `/dd-mm-yyyy/retry_<previous_timestamp>_retry_<now_timestamp>.csv`
 
-5. Create a pull request in `datagovuk-scripts`, request for a code review then merge to main on approval.
+5. Use the retry CSV as the input to the filtering step, below.
 
-6. Use the retry CSV as the input to the filtering step, below.
-
-## Filter out deferred orgs
+## Filter out deferred organisations
 
 1. Create a new branch in `datagovuk-scripts` e.g. `upload-filtered-orgs-report`
 
@@ -53,6 +51,8 @@ This is to filter out transient errors from the broken links report.
     - Download the broken links csv that we ran all the transient error runs on `/dd-mm-yyyy/retry_<timestamp>_retry_<timestamp>.csv`
 
 3. Run the filter deferred orgs script and provide a list of excluded / deferred orgs e.g. `--exclude org-name=example-org`
+
+    The list of exluded organisations can be found in Sharepoint under `2026 06 Broken links responses`
 
     ```bash
         $ scripts/filter.py [broken links csv] [output file path e.g. broken_links_to_delete_20260619T0801.csv] --exclude org-name=abc-agency,def-agency​
@@ -72,7 +72,7 @@ This is to filter out transient errors from the broken links report.
 
 2. Create a pull request and merge to main upon approval.
 
-## Create a PR to add the `checklinks.report` block to `charts/app-of-apps/values-production.yaml`
+## Create a PR to add the check links report block to govuk-dgu-charts
 
 1. Create a new branch in `govuk-dgu-charts` repo
 
