@@ -29,3 +29,10 @@ uv run scripts/retry.py reports/retry/15-06-2026/retry_20260623T0925_retry_20260
 
 Third retry result:
 (retry_20260624T0953_retry_20260625T0907.csv)[https://github.com/alphagov/datagovuk-scripts/blob/main/reports/retry/15-06-2026/reports/retry/15-06-2026/retry_20260624T0953_retry_20260625T0907.csv]
+
+```
+uv run scripts/retry.py reports/retry/15-06-2026/retry_20260624T0953_retry_20260625T0907.csv reports/retry/15-06-2026/retry_20260625T0907_retry_20260707T0942.csv
+```
+
+Fourth retry result:
+(retry_20260625T0907_retry_20260707T0942.csv)[https://github.com/alphagov/datagovuk-scripts/blob/main/reports/retry/15-06-2026/reports/retry/15-06-2026/retry_20260625T0907_retry_20260707T0942.csv]
