@@ -36,3 +36,9 @@ uv run scripts/retry.py reports/retry/15-06-2026/retry_20260624T0953_retry_20260
 
 Fourth retry result:
 (retry_20260625T0907_retry_20260707T0942.csv)[https://github.com/alphagov/datagovuk-scripts/blob/main/reports/retry/15-06-2026/reports/retry/15-06-2026/retry_20260625T0907_retry_20260707T0942.csv]
+
+## Filtering
+
+```
+uv run scripts/filter.py reports/retry/15-06-2026/retry_20260625T0907_retry_20260707T0942.csv reports/filtered/15-06-2026/broken_links_to_delete_20260707T1611.csv --exclude org-name=department-for-transport,plymouth-city-council,national-highways,oxford-city-council,leicester-city-council,rural-payments-agency,environment-agency,nhs-blood-and-transplant,marine-environmental-data-information-network,nottingham-city-council,runnymede-borough-council,natural-resources-wales,office-of-rail-and-road,dartmoor-national-park-authority,natural-england,newcastle-city-council,bridgend-county-borough-council,wirral-metropolitan-borough-council,healthcare-quality-improvement-partnership,animal-and-plant-health-agency,department-for-environment-food-and-rural-affairs,london-borough-of-hounslow,marine-management-organisation,royal-borough-of-kensington-and-chelsea --exclude-substring resource-url=open-geography-portalx-ons.hub.arcgis.com
+```
