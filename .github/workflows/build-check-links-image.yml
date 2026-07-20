@@ -107,6 +107,9 @@ jobs:
           cache-from: type=gha,scope=check-links
           cache-to: type=gha,scope=check-links,mode=max
 
+      - name: List files available in check-links directory
+        run: ls -al check-links
+
       - name: Generate Image Metadata for CKAN base image
         uses: docker/metadata-action@v6
         id: ckan-metadata
