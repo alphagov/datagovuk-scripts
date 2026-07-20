@@ -135,7 +135,7 @@ jobs:
         uses: docker/build-push-action@v7.2.0
         with:
           context: ./check-links
-          file: ckan.Dockerfile 
+          file: ./check-links/ckan.Dockerfile 
           platforms: linux/arm64
           push: ${{ env.BUILD_TYPE != 'build_only' }}
           provenance: false
