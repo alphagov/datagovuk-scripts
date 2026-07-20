@@ -117,7 +117,7 @@ jobs:
           flavor: |
             latest=false
           images: |
-            ${{ env.REGISTRY_BASE }}
+            ${{ env.REGISTRY_BASE }}-ckan
           tags: |
             type=raw,value=${{ env.GH_TAG }}
             type=raw,value=v${{ steps.version.outputs.version }}
