@@ -106,3 +106,37 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           cache-from: type=gha,scope=check-links
           cache-to: type=gha,scope=check-links,mode=max
+
+      - name: Generate Image Metadata for CKAN base image
+        uses: docker/metadata-action@v6
+        id: ckan-metadata
+        with:
+          flavor: |
+            latest=false
+          images: |
+            ${{ env.REGISTRY_BASE }}
+          tags: |
+            type=raw,value=${{ env.GH_TAG }}
+            type=raw,value=v${{ steps.version.outputs.version }}
+            type=sha,format=short
+            type=sha,priority=100,format=long
+          labels: |
+            org.opencontainers.image.title=check-links-ckan
+            org.opencontainers.image.authors="National Data Library Engineering Team"
+            org.opencontainers.image.description="check-links-ckan image for data.gov.uk"
+            org.opencontainers.image.source="https://github.com/alphagov/datagovuk-scripts"
+            org.opencontainers.image.version=${{ steps.version.outputs.version }}
+            org.opencontainers.image.vendor=GDS
+
+      - name: Build and Push Check-Links CKAN Image
+        uses: docker/build-push-action@v7.2.0
+        with:
+          context: ./check-links
+          file: ckan.Dockerfile 
+          platforms: linux/arm64
+          push: ${{ env.BUILD_TYPE != 'build_only' }}
+          provenance: false
+          tags: ${{ steps.ckan-metadata.outputs.tags }}
+          labels: ${{ steps.ckan-metadata.outputs.labels }}
+          cache-from: type=gha,scope=check-links-ckan
+          cache-to: type=gha,scope=check-links-ckan,mode=max
