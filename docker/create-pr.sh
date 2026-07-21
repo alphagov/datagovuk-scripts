@@ -22,7 +22,7 @@ HAS_CHANGED=0
 for ENV in $(echo $ENVS | tr "," " "); do
   (
     cd "${ENV}"
-    for SUFFIX in '', '-ckan'; do
+    for SUFFIX in '' '-ckan'; do
       (
         yq -i '.tag = env(IMAGE_TAG)' "check-links${SUFFIX}.yaml"
         yq -i '.branch = env(SOURCE_BRANCH)' "check-links${SUFFIX}.yaml"
