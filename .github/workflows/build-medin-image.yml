@@ -110,9 +110,9 @@ jobs:
       - name: List files available in check-links directory
         run: ls -al check-links
 
-      - name: Generate Image Metadata for CKAN base image
+      - name: Generate Image Metadata for remove MEDIN duplicates base image
         uses: docker/metadata-action@v6
-        id: ckan-metadata
+        id: medin-metadata
         with:
           flavor: |
             latest=false
@@ -131,15 +131,15 @@ jobs:
             org.opencontainers.image.version=${{ steps.version.outputs.version }}
             org.opencontainers.image.vendor=GDS
 
-      - name: Build and Push Check-Links CKAN Image
+      - name: Build and Push MEDIN CKAN Image
         uses: docker/build-push-action@v7.2.0
         with:
-          context: ./check-links
-          file: ./check-links/ckan.Dockerfile 
+          context: ./medin
+          file: ./medin/Dockerfile 
           platforms: linux/arm64
           push: ${{ env.BUILD_TYPE != 'build_only' }}
           provenance: false
-          tags: ${{ steps.ckan-metadata.outputs.tags }}
-          labels: ${{ steps.ckan-metadata.outputs.labels }}
+          tags: ${{ steps.medin-metadata.outputs.tags }}
+          labels: ${{ steps.medin-metadata.outputs.labels }}
           cache-from: type=gha,scope=check-links-ckan
           cache-to: type=gha,scope=check-links-ckan,mode=max
