@@ -4,6 +4,7 @@ from datetime import UTC, datetime
 import json
 import os
 import logging
+from multiprocessing import Pool
 import psycopg2
 import pysolr
 import subprocess
@@ -80,27 +81,60 @@ def get_datasets_to_remove(logger, datasets, remove_all=False):
     return datasets_to_remove
 
 
+def _remove_dataset(task):
+    dataset_id, in_database, solr_only = task
+    deleted_from_db = deleted_from_solr = 0
+    errors = []
+
+    if in_database and not solr_only:
+        try:
+            subprocess.check_call(["ckan", "dataset", "delete", dataset_id])
+            deleted_from_db = 1
+        except Exception as exc:
+            errors.append(("database", str(exc)))
+
+    try:
+        subprocess.check_call(["ckan", "search-index", "clear", dataset_id])
+        deleted_from_solr = 1
+    except Exception as exc:
+        errors.append(("solr", str(exc)))
+
+    return dataset_id, deleted_from_db, deleted_from_solr, errors
+
+
 def remove_datasets(logger, datasets_to_remove, report_only, solr_only):
     datasets_deleted_from_db = datasets_deleted_from_solr = 0
+    tasks = []
 
     logger.info(f"{len(datasets_to_remove)} datasets to remove")
     for i, (dataset_id, guid, title, in_database, no_guid) in enumerate(datasets_to_remove):
-        logger.info(f"{'Will remove' if report_only else 'Removing'} dataset {i+1}: ID: {dataset_id}, GUID: {guid}, title: {title}{', missing guid' if no_guid else ''} from Solr{' and database' if in_database else ''} ")
+        logger.info(
+            f"{'Will remove' if report_only else 'Removing'} dataset {i + 1}: "
+            f"ID: {dataset_id}, GUID: {guid}, title: {title}"
+            f"{', missing guid' if no_guid else ''}"
+            f" from Solr{' and database' if in_database else ''}"
+        )
 
         if not report_only:
-            if in_database and not solr_only:
-                try:
-                    command = ["ckan", "dataset", "delete", dataset_id]
-                    subprocess.check_call(command)
-                    datasets_deleted_from_db += 1
-                except Exception as exc:
-                    logger.error(f"Error occurred while deleting dataset from database, {dataset_id}: {exc}")
-            try:
-                command = ["ckan", "search-index", "clear", dataset_id]
-                subprocess.check_call(command)
-                datasets_deleted_from_solr += 1
-            except Exception as exc:
-                logger.error(f"Error while removing dataset from solr, {dataset_id}: {exc}")
+            tasks.append((dataset_id, in_database, solr_only))
+
+    if not report_only:
+        total_datasets = len(tasks)
+        completed_datasets = 0
+        num_workers = os.cpu_count() or 1
+        with Pool(processes=num_workers) as pool:
+            results = pool.imap_unordered(_remove_dataset, tasks)
+
+            for dataset_id, deleted_from_db, deleted_from_solr, errors in results:
+                completed_datasets += 1
+                logger.info(
+                    f"Progress: ID:({dataset_id}) - {completed_datasets}/{total_datasets} datasets completed "
+                    f"({completed_datasets / total_datasets:.0%})"
+                )
+                datasets_deleted_from_db += deleted_from_db
+                datasets_deleted_from_solr += deleted_from_solr
+                for target, error in errors:
+                    logger.error(f"Error while deleting dataset from {'database' if target == 'database' else 'Solr'}, {dataset_id}: {error}")
 
     if not report_only:
         logger.info(f"Successfully deleted from solr: {datasets_deleted_from_solr}, db: {datasets_deleted_from_db}")
@@ -183,4 +217,5 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
 
-sys.exit(main())
+if __name__ == "__main__":
+    sys.exit(main())
