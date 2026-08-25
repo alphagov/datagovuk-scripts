@@ -64,7 +64,7 @@ def get_datasets_to_remove(logger, datasets, remove_all=False):
         for dataset in datasets:
             logger.info(f"GUID: {dataset.get('extras_guid')}, title: {dataset.get('title')}, metadata modified: {dataset.get('metadata_modified')}")
             cursor.execute(f"SELECT id FROM package WHERE id = '{dataset.get('id')}'")
-            in_database = cursor.fetchone() != None
+            in_database = cursor.fetchone() is not None
             if remove_all or \
              (not remove_all and (
                         (last_title and not last_guid and dataset.get('title') == last_title) or \
