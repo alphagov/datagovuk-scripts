@@ -142,7 +142,7 @@ def remove_datasets(logger, datasets_to_remove, report_only, solr_only):
     if not report_only:
         total_datasets = len(tasks)
         completed_datasets = 0
-        num_workers = os.cpu_count() or 1
+        num_workers = 4 if os.cpu_count() > 4 else os.cpu_count() or 1
         with Pool(processes=num_workers) as pool:
             results = pool.imap_unordered(_remove_dataset, tasks)
 
