@@ -27,3 +27,6 @@ jobs:
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true
           exit-code: '1'
+        env:
+          TRIVY_DISABLE_VEX_NOTICE: true
+
