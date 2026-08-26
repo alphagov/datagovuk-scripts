@@ -1,5 +1,4 @@
 import argparse
-import boto3
 from datetime import UTC, datetime
 import json
 import os
@@ -165,18 +164,6 @@ def remove_datasets(logger, datasets_to_remove, report_only, solr_only):
         )
 
 
-def upload_log_to_s3(path, s3_path=None):
-    bucket_name = os.environ.get("CKAN_OUTPUT_BUCKET_NAME")
-    if not bucket_name:
-        raise Exception("CKAN_OUTPUT_BUCKET_NAME environment variable is not set")
-
-    s3 = boto3.resource("s3")
-    bucket = s3.Bucket(bucket_name)
-
-    s3_path = s3_path + "/" + path.split("/")[-1]
-    bucket.upload_file(path, s3_path)
-
-
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -245,7 +232,6 @@ def main(argv: list[str] | None = None) -> int:
             args.solr_only == "True",
         )
         print(f"Logs written to {log_path}")
-        upload_log_to_s3(log_path, "removed_datasets")
     except Exception as e:
         logger.error(str(e))
         return 1
