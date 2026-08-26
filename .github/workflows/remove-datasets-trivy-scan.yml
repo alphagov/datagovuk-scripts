@@ -1,4 +1,4 @@
-name: "Trivy Security Scan"
+name: "Remove Datasets Trivy Security Scan"
 
 on:
   pull_request:
