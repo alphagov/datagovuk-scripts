@@ -91,8 +91,6 @@ def get_datasets_to_remove(logger, datasets, remove_all=False):
                         not last_guid,
                     )
                 )
-            else:
-                print(f"not removing {dataset.get('id')}")
             last_guid = dataset.get("extras_guid", None)
             last_title = dataset.get("title", None)
 
