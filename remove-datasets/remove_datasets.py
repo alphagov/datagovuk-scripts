@@ -26,7 +26,7 @@ def setup_logging(log_path: str) -> logging.Logger:
     return logger
 
 
-def get_org_datasets(org_name):
+def get_org_datasets(org_name, keep_latest):
     solr_url = os.getenv("CKAN_SOLR_URL")
     solr = pysolr.Solr(solr_url, timeout=10)
 
@@ -38,15 +38,15 @@ def get_org_datasets(org_name):
             **{
                 "fq": [],
                 "fl": "id,extras_guid,metadata_modified,title",
-                "sort": "title asc, extras_guid asc, metadata_modified desc",
+                "sort": f"title asc, extras_guid asc, metadata_modified {'desc' if keep_latest else 'asc'}",
                 "start": 0,
                 "rows": 5000,
             },
         )
 
-        # sort by metadata modified in reverse as assuming we want to keep the latest and delete the older dataset when removing duplicates
+        # defaults to sort by metadata modified in reverse as assuming we want to keep the latest and delete the older dataset when removing duplicates
         datasets_sorted = sorted(
-            datasets.docs, key=lambda x: x.get("metadata_modified", ""), reverse=True
+            datasets.docs, key=lambda x: x.get("metadata_modified", ""), reverse=True if keep_latest else False
         )
         # sort by title first as the solr sort was not keeping the sort order
         return sorted(
@@ -56,7 +56,7 @@ def get_org_datasets(org_name):
         raise Exception(f"Solr response not OK: {resp.get('status')}")
 
 
-def get_datasets_to_remove(logger, datasets, remove_all=False):
+def get_datasets_to_remove(logger, datasets, remove_all):
     datasets_to_remove = []
     last_guid = None
     last_title = None
@@ -194,6 +194,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default="False",
         help="Remove all org datasets (default False for duplicates)",
     )
+    parser.add_argument(
+        "--keep-latest",
+        "-k",
+        default="True",
+        help="Keep the latest dataset, set to False to keep the oldest (Default True)",
+    )
 
     return parser.parse_args(argv)
 
@@ -209,6 +215,7 @@ def main(argv: list[str] | None = None) -> int:
     logger.info(f"Solr only: {args.solr_only}")
     logger.info(f"Report only: {args.report_only}")
     logger.info(f"Remove all datasets: {args.remove_all}")
+    logger.info(f"Keep latest datasets: {args.keep_latest}")
     logger.info(f"Log path: {log_path}")
     logger.info("====================")
 
@@ -219,9 +226,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     try:
-        org_datasets = get_org_datasets(args.org)
+        org_datasets = get_org_datasets(args.org, args.keep_latest == "True")
         datasets_to_remove = get_datasets_to_remove(
-            logger, org_datasets, args.remove_all == "True"
+            logger,
+            org_datasets,
+            args.remove_all == "True",
         )
         remove_datasets(
             logger,
