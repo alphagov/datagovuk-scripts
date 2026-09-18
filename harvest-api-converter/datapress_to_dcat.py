@@ -29,6 +29,9 @@ def to_dcat(datapress):
         dcat["issued"] = datapress["createdAt"]
     if datapress.get("updatedAt"):
         dcat["modified"] = datapress["updatedAt"]
+    licence = datapress.get("licence")
+    if isinstance(licence, dict) and licence.get("url"):
+        dcat["license"] = licence["url"]
 
     contact = datapress.get("contact")
     if contact:
