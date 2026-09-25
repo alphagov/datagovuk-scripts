@@ -1,0 +1,1501 @@
+[
+  {
+    "title": "Public street lighting",
+    "theme": [
+      "Communities",
+      "Travel and Transport"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T12:52:49.000Z",
+    "modified": "2026-08-21T10:25:30.843Z",
+    "landingPage": "https://datamillnorth.org/dataset/public-street-lighting-2zxd6",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public Street Lighting 2026.csv",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public street lighting 2025",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public street lighting 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public street lighting 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public street lighting 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public street lighting 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public street lighting 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of public street lighting columns owned and maintained by Durham County Council. Please see https://www.durham.gov.uk/article/2380/Street-lighting-and-illuminated-traffic-signs for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2zxd6",
+    "keyword": [
+      "Street Lighting",
+      "lights",
+      "utilities"
+    ]
+  },
+  {
+    "title": "County Durham Local Plan",
+    "theme": [
+      "Housing",
+      "Travel and Transport",
+      "Leisure and Tourism",
+      "Health and Wellbeing",
+      "Business and Economy",
+      "Communities",
+      "Environment and Climate Emergency",
+      "Education, Skills and Employment"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2024-09-25T12:18:40.289Z",
+    "modified": "2024-11-22T12:27:08.133Z",
+    "landingPage": "https://datamillnorth.org/dataset/county-durham-local-plan-2ro54",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "County Durham Plan.zip",
+        "description": ""
+      }
+    ],
+    "description": "The County Durham Plan sets out a vision for housing, jobs and the environment until 2035, as well as the transport, schools and healthcare to support it. https://www.durham.gov.uk/cdp",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2ro54",
+    "keyword": []
+  },
+  {
+    "title": "Tree Preservation Orders",
+    "theme": [
+      "Environment and Climate Emergency",
+      "Leisure and Tourism"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2024-11-06T13:04:38.532Z",
+    "modified": "2024-11-06T13:45:20.142Z",
+    "landingPage": "https://datamillnorth.org/dataset/tree-preservation-orders-e1gwj",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "tpo.zip",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "tpo.csv",
+        "description": ""
+      }
+    ],
+    "description": "A TPO is a legal document made, administered and enforced by us as the local planning authority. It protects specified trees and woodlands, and prevents cutting down, uprooting, topping, lopping, wilful damage or destruction of trees (including cutting roots) without our permission. A TPO can protect anything from a single tree to all trees within a defined group or woodland. There are currently around 700 TPOs in County Durham.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "e1gwj",
+    "keyword": [
+      "Trees"
+    ]
+  },
+  {
+    "title": "Public Rights of Way",
+    "theme": [
+      "Travel and Transport",
+      "Health and Wellbeing",
+      "Leisure and Tourism"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2018-12-06T12:33:27.694Z",
+    "modified": "2024-10-28T11:20:32.204Z",
+    "landingPage": "https://datamillnorth.org/dataset/public-rights-of-way-2lx03",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public Rights of Way 2024",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "PublicRightsofWay2022.zip",
+        "description": "GIS shapefile of known Public Rights of Way in County Durham"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "PublicRightsofWay2020.zip",
+        "description": "GIS shapefile of known Public Rights of Way in County Durham"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "PublicRightsofWay2019.zip",
+        "description": "GIS shapefile of known Public Rights of Way in County Durham"
+      }
+    ],
+    "description": "Known public rights of way in the county of Durham",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2lx03",
+    "keyword": [
+      "public right of way"
+    ]
+  },
+  {
+    "title": "Adopted Highways",
+    "theme": [
+      "Travel and Transport"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2019-10-02T15:29:59.121Z",
+    "modified": "2024-10-28T11:02:51.745Z",
+    "landingPage": "https://datamillnorth.org/dataset/adopted-highways-2gw5q",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Adopted Highways 2024",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Adopted Highways 2021",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Adopted Highways 2019",
+        "description": ""
+      }
+    ],
+    "description": "A GIS shapefile of publically maintained highways within the county of Durham. For more information see https://www.durham.gov.uk/adoptedhighways",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2gw5q",
+    "keyword": [
+      "Highways",
+      "Roads",
+      "Adopted"
+    ]
+  },
+  {
+    "title": "Brownfield Sites",
+    "theme": [
+      "Housing"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-11-28T11:12:43.000Z",
+    "modified": "2022-12-02T16:45:29.538Z",
+    "landingPage": "https://datamillnorth.org/dataset/brownfield-sites-2zl8k",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "01/12/2022",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "01/12/2022",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "16/12/2021",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "16/12/2021",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "20/11/2020",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "20/11/2020",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "02/12/2019",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "02/12/2019",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "01/12/2017",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "01/12/2017",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "13/02/2019",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "13/02/2019",
+        "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'."
+      }
+    ],
+    "description": "The Town and Country Planning (Brownfield Land Register) Regulations 2017 and the Town and Country Planning (Permission in Principle) Order 2017 require all local planning authorities in England to prepare and maintain registers of brownfield land that is suitable for residential development. The sites included in this register need to be available for development in the next 10 years, capable of development (any problems can be mitigated), over 0.2 hectares and be 'predominantly brownfield'.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2zl8k",
+    "keyword": [
+      "brownfield",
+      "Housing"
+    ]
+  },
+  {
+    "title": "One Point Service Hubs",
+    "theme": [
+      "Communities"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T14:30:10.000Z",
+    "modified": "2022-11-14T16:29:13.900Z",
+    "landingPage": "https://datamillnorth.org/dataset/one-point-service-hubs-e7yqk",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "One Point Service Hubs 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "One Point Service Hubs 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "One Point Service Hubs 2017",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of One Point Service Hub locations from which services to children and families are co-ordinated, managed and delivered within Durham. Please see One Point family centres and hubs - Durham County Council for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "e7yqk",
+    "keyword": [
+      "families",
+      "one point hub",
+      "family",
+      "young people",
+      "customer access points",
+      "well being"
+    ]
+  },
+  {
+    "title": "Family Centres",
+    "theme": [
+      "Education, Skills and Employment",
+      "Communities",
+      "Health and Wellbeing"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T14:55:56.000Z",
+    "modified": "2022-11-14T16:28:24.183Z",
+    "landingPage": "https://datamillnorth.org/dataset/family-centres-e6qzp",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Family Centres 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Family Centres 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Children's Centres 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Children's Centres 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of family centres (formerley children's centres) within Durham for children aged under five and their families. Please see One Point family centres and hubs - Durham County Council for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "e6qzp",
+    "keyword": [
+      "family",
+      "families",
+      "Education",
+      "health",
+      "childrens centres",
+      "family centres"
+    ]
+  },
+  {
+    "title": "Public conveniences",
+    "theme": [
+      "Communities"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2016-12-19T11:44:22.000Z",
+    "modified": "2022-02-03T10:47:27.690Z",
+    "landingPage": "https://datamillnorth.org/dataset/public-conveniences-2o145",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public Conveniences 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public conveniences 2019",
+        "description": ""
+      }
+    ],
+    "description": "A spatial dataset of public conveniences in Durham. Not all are maintained by Durham County Council.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2o145",
+    "keyword": [
+      "toilets",
+      "public conveniences"
+    ]
+  },
+  {
+    "title": "Public libraries",
+    "theme": [
+      "Leisure and Tourism",
+      "Communities",
+      "Education, Skills and Employment"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-03T09:26:40.000Z",
+    "modified": "2022-01-25T16:53:53.885Z",
+    "landingPage": "https://datamillnorth.org/dataset/public-libraries-vq6p7",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public libraries 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public libraries 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public libraries 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of public libraries owned by Durham County Council. To find out more about public libraries click on the following link: https://www.durham.gov.uk/libraries",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "vq6p7",
+    "keyword": [
+      "Library",
+      "libraries",
+      "audiobooks",
+      "ebooks",
+      "emagazines",
+      "computers",
+      "Books",
+      "Lifestyle17"
+    ]
+  },
+  {
+    "title": "Household waste recycling centres",
+    "theme": [
+      "Communities",
+      "Business and Economy"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2016-12-19T10:43:34.000Z",
+    "modified": "2022-01-25T16:49:55.375Z",
+    "landingPage": "https://datamillnorth.org/dataset/household-waste-recycling-centres-exkxd",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Household waste recycling centres 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Household waste recycling centres 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Household waste recycling centres 2016",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Household waste recycling centres 2018",
+        "description": ""
+      }
+    ],
+    "description": "A spatial dataset showing Durham County Council's Household Waste Recycling Centres There is a statutory obligation under the Environment Protection Act 1990, section 51, 1b which states that: (1) It shall be the duty of each waste disposal authority to arrange (b) for places to be provided at which persons resident in its area may deposit their household waste and for the disposal of waste so deposited. To find out more about recycling centres visit: https://www.durham.gov.uk/hwrc",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "exkxd",
+    "keyword": [
+      "recycling",
+      "waste",
+      "easting",
+      "northing",
+      "tip"
+    ]
+  },
+  {
+    "title": "Public leisure centres",
+    "theme": [
+      "Communities",
+      "Health and Wellbeing",
+      "Leisure and Tourism"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-03T10:25:01.000Z",
+    "modified": "2022-01-25T16:46:36.973Z",
+    "landingPage": "https://datamillnorth.org/dataset/public-leisure-centres-2lqgm",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Public Leisure Centres 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "03/01/2017",
+        "description": "Public leisure centres"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "04/10/2018",
+        "description": "Public leisure centres"
+      }
+    ],
+    "description": "Spatial dataset of public leisure centres, which are owned by Durham County Council. Further information To find out more about leisure centres, click on the following link https://www.durham.gov.uk/leisurecentres",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:durham.opendata@gmail.com"
+    },
+    "identifier": "2lqgm",
+    "keyword": [
+      "leisure",
+      "public health",
+      "active",
+      "fitness",
+      "sports",
+      "gym",
+      "swimming",
+      "Lifestyle17"
+    ]
+  },
+  {
+    "title": "Park and ride sites",
+    "theme": [
+      "Travel and Transport"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-19T13:41:53.000Z",
+    "modified": "2022-01-25T16:45:09.708Z",
+    "landingPage": "https://datamillnorth.org/dataset/park-and-ride-sites-e1dyp",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "19/01/2017",
+        "description": "Spatial dataset of park and ride sites in County Durham. Please see http://www.durham.gov.uk/parkandride for more information."
+      }
+    ],
+    "description": "Spatial dataset of park and ride sites in County Durham. Please see https://www.durham.gov.uk/parkandride for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:durham.opendata@gmail.com"
+    },
+    "identifier": "e1dyp",
+    "keyword": [
+      "Transport",
+      "park and ride"
+    ]
+  },
+  {
+    "title": "Air Quality Monitors",
+    "theme": [
+      "Health and Wellbeing"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T14:37:47.000Z",
+    "modified": "2022-01-25T16:43:01.934Z",
+    "landingPage": "https://datamillnorth.org/dataset/air-quality-monitors-v8gl3",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Air Quality Monitors 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Air Quality Monitors 2018",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Air Quality Monitors 2017",
+        "description": ""
+      }
+    ],
+    "description": "A spatial dataset of fixed and mobile air quality monitors. Please see https://www.durham.gov.uk/airquality for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "v8gl3",
+    "keyword": [
+      "air pollution",
+      "Air Quality",
+      "airhack"
+    ]
+  },
+  {
+    "title": "Car Parks",
+    "theme": [
+      "Travel and Transport"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T12:19:44.000Z",
+    "modified": "2022-01-25T16:41:26.494Z",
+    "landingPage": "https://datamillnorth.org/dataset/car-parks-2o1n5",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Car parks 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Car parks 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Car parks 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of car parks managed by Durham County Council. Further information Please see https://www.durham.gov.uk/article/4111/Where-can-I-park for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2o1n5",
+    "keyword": [
+      "car park",
+      "parking",
+      "cars",
+      "spaces"
+    ]
+  },
+  {
+    "title": "Museums",
+    "theme": [
+      "Leisure and Tourism",
+      "Education, Skills and Employment"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T15:08:44.000Z",
+    "modified": "2022-01-25T15:27:24.914Z",
+    "landingPage": "https://datamillnorth.org/dataset/museums-23ywd",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Museums 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "17/01/2017",
+        "description": "Spatial dataset of museums in County Durham."
+      }
+    ],
+    "description": "Spatial dataset of museums in County Durham.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:durham.opendata@gmail.com"
+    },
+    "identifier": "23ywd",
+    "keyword": [
+      "Education",
+      "museums",
+      "Tourism",
+      "Lifestyle17"
+    ]
+  },
+  {
+    "title": "Caravan parks",
+    "theme": [
+      "Leisure and Tourism"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2016-11-28T14:12:38.000Z",
+    "modified": "2022-01-25T15:13:03.407Z",
+    "landingPage": "https://datamillnorth.org/dataset/caravan-parks-20j66",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Caravan Parks 2022.csv",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Caravan Parks 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Caravan parks 2016",
+        "description": ""
+      }
+    ],
+    "description": "A spatial dataset of caravan parks in Durham To find out more visit: https://www.durham.gov.uk/article/2146/Caravan-and-camping-site-licence",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "20j66",
+    "keyword": [
+      "Caravans",
+      "Holiday",
+      "Tourism",
+      "parks"
+    ]
+  },
+  {
+    "title": "CCTV camera locations",
+    "theme": [
+      "Communities"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T14:07:38.000Z",
+    "modified": "2022-01-25T15:11:41.379Z",
+    "landingPage": "https://datamillnorth.org/dataset/cctv-camera-locations-2lqpm",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "CCTV camera locations 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "CCTV camera locations 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "CCTV camera locations 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "CCTV camera locations 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "CCTV camera locations 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of all council managed surveillance camera CCTV locations across Durham. Covert and re-deployable camera locations are not shown for operational and legal reasons. Schools and colleges are not included. Please see https://www.durham.gov.uk/article/2754/Accessing-your-personal-data for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2lqpm",
+    "keyword": [
+      "security",
+      "CCTV"
+    ]
+  },
+  {
+    "title": "Nitrogen Dioxide Diffusion Tube Network",
+    "theme": [
+      "Health and Wellbeing",
+      "Travel and Transport"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T14:42:46.000Z",
+    "modified": "2022-01-25T15:10:02.171Z",
+    "landingPage": "https://datamillnorth.org/dataset/nitrogen-dioxide-diffusion-tube-network-vdm8m",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Nitrogen Dioxide Diffusion Tube Network 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Nitrogen Dioxide Diffusion Tube Network 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Nitrogen Dioxide Diffusion Tube Network 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Nitrogen Dioxide Diffusion Tube Network 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Nitrogen Dioxide Diffusion Tube Network 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of diffusion tubes used to assess the levels of nitrogen dioxide at road or near to the roadside within Durham. Please see https://www.durham.gov.uk/airquality for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "vdm8m",
+    "keyword": [
+      "air pollution",
+      "Air Quality",
+      "airhack"
+    ]
+  },
+  {
+    "title": "Salt bins",
+    "theme": [
+      "Travel and Transport",
+      "Communities"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2016-12-19T11:52:25.000Z",
+    "modified": "2022-01-25T15:08:34.730Z",
+    "landingPage": "https://datamillnorth.org/dataset/salt-bins-2zx16",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Salt Bins 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Salt bins 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Salt bins 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Salt bins 2016",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Salt bins 2018",
+        "description": ""
+      }
+    ],
+    "description": "Location of salt bins in Durham. To find out more about salt bins, visit: https://www.durham.gov.uk/saltbins",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2zx16",
+    "keyword": [
+      "snow",
+      "winter",
+      "Roads",
+      "salt bins",
+      "ice"
+    ]
+  },
+  {
+    "title": "State funded schools",
+    "theme": [
+      "Education, Skills and Employment"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T13:59:53.000Z",
+    "modified": "2022-01-25T15:01:30.870Z",
+    "landingPage": "https://datamillnorth.org/dataset/state-funded-schools-vq657",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "State funded schools 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "State funded schools 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "State funded schools 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "State funded schools 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "State funded schools 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of state funded schools in Durham, including academies. Please see https://www.durham.gov.uk/education for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "vq657",
+    "keyword": [
+      "School",
+      "Education"
+    ]
+  },
+  {
+    "title": "Traffic Web Cameras",
+    "theme": [
+      "Travel and Transport"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T14:50:12.000Z",
+    "modified": "2022-01-25T15:00:36.742Z",
+    "landingPage": "https://datamillnorth.org/dataset/traffic-web-cameras-2kq9x",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Traffic Web Cameras 2022",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Traffic Web Cameras 2020",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Traffic Web Cameras 2019",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Traffic Web Cameras 2017",
+        "description": ""
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Traffic Web Cameras 2018",
+        "description": ""
+      }
+    ],
+    "description": "Spatial dataset of Durham County Council managed traffic web camera locations. Please see https://www.durham.gov.uk/trafficcameras for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2kq9x",
+    "keyword": [
+      "Traffic",
+      "web traffic",
+      "camera"
+    ]
+  },
+  {
+    "title": "Conservation Areas DCC",
+    "theme": [
+      "Environment and Climate Emergency"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2021-06-09T16:00:37.543Z",
+    "modified": "2021-09-16T14:08:21.692Z",
+    "landingPage": "https://datamillnorth.org/dataset/conservation-areas-dcc-24l35",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "ConservationAreas2021.zip",
+        "description": ""
+      }
+    ],
+    "description": "Statutory areas of special architectural or historic interest, the character or appearance of which it is desirable to preserve or enhance as defined in the 1967 Civic Amenities Act.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "24l35",
+    "keyword": [
+      "Conservation",
+      "area"
+    ]
+  },
+  {
+    "title": "Lifebuoys",
+    "theme": [
+      "Leisure and Tourism"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2018-11-15T14:10:29.556Z",
+    "modified": "2019-11-07T11:31:02.489Z",
+    "landingPage": "https://datamillnorth.org/dataset/lifebuoys-2oow6",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Lifebuoys 2019",
+        "description": ""
+      }
+    ],
+    "description": "A spatial dataset of lifebuoys in Durham. Not all are maintained by Durham County Council.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2oow6",
+    "keyword": [
+      "Water Safety"
+    ]
+  },
+  {
+    "title": "Water safety equipment locations",
+    "theme": [],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-27T17:29:04.000Z",
+    "modified": "2018-11-15T14:28:44.180Z",
+    "landingPage": "https://datamillnorth.org/dataset/water-safety-equipment-locations-e51ox",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "27/01/2017",
+        "description": "Water safety equipment locations. No longer updated."
+      }
+    ],
+    "description": "Spatial dataset of water safety equipment locations owned and maintained by Durham County Council. Dataset no longer updated.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "e51ox",
+    "keyword": []
+  },
+  {
+    "title": "Vacant Commercial Properties in County Durham",
+    "theme": [
+      "Business and Economy"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-05-23T15:38:02.000Z",
+    "modified": "2018-10-09T14:21:22.000Z",
+    "landingPage": "https://datamillnorth.org/dataset/vacant-commercial-properties-in-county-durham-2oo5w",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "08/10/2018",
+        "description": "Vacant Commercial Properties in County Durham as at 08/10/2018."
+      }
+    ],
+    "description": "Vacant commerical properties in County Durham as at 8th october 2018.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:opendata@durham.gov.uk"
+    },
+    "identifier": "2oo5w",
+    "keyword": [
+      "business",
+      "vacant"
+    ]
+  },
+  {
+    "title": "Customer Access Points",
+    "theme": [
+      "Communities"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-17T12:05:06.000Z",
+    "modified": "2018-10-04T13:06:12.568Z",
+    "landingPage": "https://datamillnorth.org/dataset/customer-access-points-exk7d",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "17/01/2017",
+        "description": "Spatial dataset of Durham County Council Customer Access Points. Please see http://www.durham.gov.uk/article/1909/Customer-Access-Points for more information."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "04/10/2018",
+        "description": "Spatial dataset of Durham County Council Customer Access Points. Please see http://www.durham.gov.uk/article/1909/Customer-Access-Points for more information."
+      }
+    ],
+    "description": "Spatial dataset of Durham County Council Customer Access Points. Please see http://www.durham.gov.uk/article/1909/Customer-Access-Points for more information.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:durham.opendata@gmail.com"
+    },
+    "identifier": "exk7d",
+    "keyword": [
+      "customer access",
+      "council services",
+      "Durham County Council"
+    ]
+  },
+  {
+    "title": "Footfall around Durham University",
+    "theme": [
+      "Education, Skills and Employment"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-19T15:18:23.000Z",
+    "modified": "2017-02-23T11:12:01.000Z",
+    "landingPage": "https://datamillnorth.org/dataset/footfall-around-durham-university-2gpgn",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "Window Conversion for Palatine Building",
+        "description": "Window Conversion for Palatine Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Passers by for Palatine Building",
+        "description": "Passers by for Palatine Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Dwell information for Palatine Building",
+        "description": "Dwell information for Palatine Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest Hour for Palatine Building",
+        "description": "Busiest Hour for Palatine Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest Day for Palatine Building",
+        "description": "Busiest Day for Palatine Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Window Conversion for Palace Green",
+        "description": "Window Conversion for Palace Green"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Passers by for Palace Green",
+        "description": "Passers by for Palace Green"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Dwell information for Palace Green",
+        "description": "Dwell information for Palace Green"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest Hour for Palace Green",
+        "description": "Busiest Hour for Palace Green"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest Day for Palace Green",
+        "description": "Busiest Day for Palace Green"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Window Conversion for Library",
+        "description": "Window Conversion for Library"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Passers by for Libray",
+        "description": "Passers by for Libray"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Dwell information for Library",
+        "description": "Dwell information for Library"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest Hour for Library",
+        "description": "Busiest Hour for Library"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest Day for Library",
+        "description": "Busiest Day for Library"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Window Conversion for Chemistry Building",
+        "description": "Window Conversion for Chemistry Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Passers by for Chemistry Building",
+        "description": "Passers by for Chemistry Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Dwell information for Chemistry Building",
+        "description": "Dwell information for Chemistry Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest Hour for Chemistry Building",
+        "description": "Busiest Hour for Chemistry Building"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest day for Chemistry Building",
+        "description": "Busiest day for Venue 1"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "cross shopping for all venues combined",
+        "description": "cross shopping for all venues"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "windowConversion for all venues combined",
+        "description": "windowConversion for all venues"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "PasserBy for all venues combined",
+        "description": "PasserBy for all venues"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Dwell for all venues combined",
+        "description": "Dwell for all venues"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest hours for all venues combined",
+        "description": "Busiest hours for all venues combined."
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "Busiest day for all venues combined",
+        "description": "Busiest day for all venues combined"
+      }
+    ],
+    "description": "Data around footfall at Durham University",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:durham.opendata@gmail.com"
+    },
+    "identifier": "2gpgn",
+    "keyword": [
+      "business",
+      "Footfall",
+      "economy",
+      "Tourism"
+    ]
+  },
+  {
+    "title": "Durham City Major Centre Statistics",
+    "theme": [
+      "Code of Transparency",
+      "Business and Economy",
+      "Housing",
+      "Education, Skills and Employment",
+      "Health and Wellbeing"
+    ],
+    "publisher": {
+      "@type": "org:Organization",
+      "name": "Durham County Council"
+    },
+    "issued": "2017-01-11T15:46:48.000Z",
+    "modified": "2017-01-11T16:00:21.000Z",
+    "landingPage": "https://datamillnorth.org/dataset/durham-city-major-centre-statistics-e7y0k",
+    "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "title": "11/01/2017",
+        "description": "Map of Durham City Lower Super Output Area Boundaries"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "11/01/2017",
+        "description": "Durham City Major Centre Statistical Profile 2016"
+      },
+      {
+        "@type": "dcat:Distribution",
+        "title": "11/01/2017",
+        "description": "The data in this workbook was used to create/populate the associated Durham City Major Profile which accompanies this file."
+      }
+    ],
+    "description": "Durham City Major Centre Statistics Note: This is a processed dataset derived from official published sources. It may contain alterations, aggregations or cleaned-up versions of data published elsewhere. Please note, this dataset may be a one-off publication and may not be updated.",
+    "accessLevel": "public",
+    "@type": "dcat:Dataset",
+    "contactPoint": {
+      "@type": "vcard:Contact",
+      "fn": "Durham County Council",
+      "hasEmail": "mailto:durham.opendata@gmail.com"
+    },
+    "identifier": "e7y0k",
+    "keyword": [
+      "Census",
+      "Housing",
+      "population",
+      "Education",
+      "health",
+      "economy"
+    ]
+  }
+]
