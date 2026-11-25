@@ -1,4 +1,4 @@
-FROM python:3.11.18-slim AS base
+FROM python:3.14.10-slim AS base
 
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 

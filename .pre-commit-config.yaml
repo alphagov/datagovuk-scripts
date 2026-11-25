@@ -7,7 +7,6 @@ repos:
       - id: check-yaml
       - id: check-json
       - id: debug-statements
-        language_version: python3.12
       - id: detect-private-key
 
   # Run the Ruff linter.
